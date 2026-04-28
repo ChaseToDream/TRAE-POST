@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>我的TRAE论坛帖子</title>
+<style>
+:root {
+  --primary: #6C5CE7;
+  --primary-light: #A29BFE;
+  --bg: #0F0F1A;
+  --bg-card: #1A1A2E;
+  --bg-hover: #222240;
+  --text: #E8E8F0;
+  --text-muted: #8888AA;
+  --border: #2A2A45;
+  --tag-bg: #2D2D4A;
+  --shadow: 0 4px 24px rgba(0,0,0,0.3);
+  --radius: 12px;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans SC", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  min-height: 100vh;
+}
+.container { max-width: 960px; margin: 0 auto; padding: 0 20px; }
+header {
+  background: linear-gradient(135deg, #1A1A2E 0%, #16213E 100%);
+  border-bottom: 1px solid var(--border);
+  padding: 40px 0 30px;
+  text-align: center;
+}
+header .avatar {
+  width: 80px; height: 80px;
+  border-radius: 50%;
+  border: 3px solid var(--primary);
+  margin-bottom: 12px;
+  object-fit: cover;
+}
+header h1 { font-size: 1.6rem; font-weight: 700; margin-bottom: 4px; }
+header .bio { color: var(--text-muted); font-size: 0.9rem; max-width: 500px; margin: 0 auto; }
+header .meta-row {
+  display: flex; justify-content: center; gap: 20px;
+  margin-top: 12px; font-size: 0.85rem; color: var(--text-muted);
+}
+header .meta-row span { display: flex; align-items: center; gap: 4px; }
+.stats-bar {
+  display: flex; justify-content: center; gap: 32px;
+  padding: 20px 0; border-bottom: 1px solid var(--border);
+  background: var(--bg-card);
+}
+.stat-item { text-align: center; }
+.stat-item .num { font-size: 1.5rem; font-weight: 700; color: var(--primary-light); }
+.stat-item .label { font-size: 0.8rem; color: var(--text-muted); }
+nav.categories {
+  position: sticky; top: 0; z-index: 100;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+  padding: 12px 0;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+nav.categories::-webkit-scrollbar { height: 0; }
+.cat-list {
+  display: flex; gap: 8px; list-style: none;
+  white-space: nowrap; padding: 0 20px;
+}
+.cat-list li {
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  background: var(--tag-bg);
+  color: var(--text-muted);
+  transition: all 0.2s;
+  border: 1px solid transparent;
+  user-select: none;
+}
+.cat-list li:hover { background: var(--bg-hover); color: var(--text); }
+.cat-list li.active {
+  background: var(--primary);
+  color: #fff;
+  border-color: var(--primary-light);
+}
+.cat-list li .count {
+  display: inline-block;
+  margin-left: 4px;
+  font-size: 0.75rem;
+  opacity: 0.7;
+}
+main { padding: 24px 0 60px; }
+.post-list { display: flex; flex-direction: column; gap: 16px; }
+.post-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  transition: all 0.2s;
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+.post-card:hover {
+  border-color: var(--primary);
+  box-shadow: var(--shadow);
+  transform: translateY(-2px);
+}
+.post-card .post-header {
+  display: flex; align-items: flex-start; gap: 12px; margin-bottom: 10px;
+}
+.post-card .post-thumb {
+  width: 80px; height: 60px;
+  border-radius: 8px;
+  object-fit: cover;
+  flex-shrink: 0;
+  background: var(--tag-bg);
+}
+.post-card .post-info { flex: 1; min-width: 0; }
+.post-card .post-title {
+  font-size: 1.05rem; font-weight: 600;
+  line-height: 1.4; margin-bottom: 6px;
+  display: -webkit-box; -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical; overflow: hidden;
+}
+.post-card .post-meta {
+  display: flex; flex-wrap: wrap; gap: 8px;
+  align-items: center; font-size: 0.8rem; color: var(--text-muted);
+}
+.post-card .cat-tag {
+  padding: 2px 10px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  background: var(--primary);
+  color: #fff;
+  white-space: nowrap;
+}
+.post-card .post-excerpt {
+  font-size: 0.88rem; color: var(--text-muted);
+  line-height: 1.5; margin-top: 8px;
+  display: -webkit-box; -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical; overflow: hidden;
+}
+.post-card .post-stats {
+  display: flex; gap: 16px; margin-top: 10px;
+  font-size: 0.8rem; color: var(--text-muted);
+}
+.post-card .post-stats span { display: flex; align-items: center; gap: 4px; }
+.post-card .pin-badge {
+  font-size: 0.7rem;
+  padding: 1px 6px;
+  border-radius: 4px;
+  background: #E17055;
+  color: #fff;
+}
+.empty-state {
+  text-align: center; padding: 60px 20px; color: var(--text-muted);
+}
+.empty-state .icon { font-size: 3rem; margin-bottom: 12px; }
+.loading {
+  text-align: center; padding: 60px 20px; color: var(--text-muted);
+}
+.loading .spinner {
+  width: 36px; height: 36px;
+  border: 3px solid var(--border);
+  border-top-color: var(--primary);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin: 0 auto 12px;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+.error-state {
+  text-align: center; padding: 40px 20px;
+  background: var(--bg-card); border-radius: var(--radius);
+  border: 1px solid #E17055;
+}
+.error-state h3 { color: #E17055; margin-bottom: 8px; }
+footer {
+  text-align: center; padding: 24px;
+  font-size: 0.8rem; color: var(--text-muted);
+  border-top: 1px solid var(--border);
+}
+footer a { color: var(--primary-light); text-decoration: none; }
+footer a:hover { text-decoration: underline; }
+.search-box {
+  padding: 16px 0;
+}
+.search-box input {
+  width: 100%;
+  padding: 10px 16px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  color: var(--text);
+  font-size: 0.9rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.search-box input::placeholder { color: var(--text-muted); }
+.search-box input:focus { border-color: var(--primary); }
+@media (max-width: 640px) {
+  header { padding: 24px 0 20px; }
+  header h1 { font-size: 1.3rem; }
+  .stats-bar { gap: 20px; padding: 16px 0; }
+  .stat-item .num { font-size: 1.2rem; }
+  .post-card { padding: 14px; }
+  .post-card .post-header { gap: 8px; }
+  .post-card .post-thumb { width: 60px; height: 45px; }
+  .post-card .post-title { font-size: 0.95rem; }
+}
+</style>
+</head>
+<body>
+
+<header id="header">
+  <div class="container">
+    <img class="avatar" id="avatar" src="" alt="avatar" style="display:none">
+    <h1 id="username">加载中...</h1>
+    <p class="bio" id="bio"></p>
+    <div class="meta-row" id="meta-row"></div>
+  </div>
+</header>
+
+<div class="stats-bar" id="stats-bar" style="display:none">
+  <div class="stat-item"><div class="num" id="stat-posts">0</div><div class="label">帖子</div></div>
+  <div class="stat-item"><div class="num" id="stat-views">0</div><div class="label">总浏览</div></div>
+  <div class="stat-item"><div class="num" id="stat-likes">0</div><div class="label">总点赞</div></div>
+  <div class="stat-item"><div class="num" id="stat-cats">0</div><div class="label">分类</div></div>
+</div>
+
+<nav class="categories" id="cat-nav" style="display:none">
+  <ul class="cat-list" id="cat-list"></ul>
+</nav>
+
+<main>
+  <div class="container">
+    <div class="search-box">
+      <input type="text" id="search-input" placeholder="搜索帖子标题...">
+    </div>
+    <div id="content">
+      <div class="loading"><div class="spinner"></div><p>正在加载数据...</p></div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <p>数据来源于 <a href="https://forum.trae.cn/" target="_blank" rel="noopener">TRAE 官方中文社区</a> · 每日自动更新</p>
+  <p style="margin-top:4px" id="update-time"></p>
+</footer>
+
+<script>
+(function() {
+  var DATA_PATH = 'data/posts.json';
+  var allPosts = [];
+  var categories = {};
+  var activeCategory = 'all';
+  var searchQuery = '';
+
+  function formatNumber(n) {
+    if (n >= 10000) return (n / 10000).toFixed(1) + 'w';
+    if (n >= 1000) return (n / 1000).toFixed(1) + 'k';
+    return String(n);
+  }
+
+  function formatDate(dateStr) {
+    if (!dateStr) return '';
+    var d = new Date(dateStr);
+    var y = d.getFullYear();
+    var m = String(d.getMonth() + 1).padStart(2, '0');
+    var day = String(d.getDate()).padStart(2, '0');
+    return y + '-' + m + '-' + day;
+  }
+
+  function timeAgo(dateStr) {
+    if (!dateStr) return '';
+    var now = new Date();
+    var d = new Date(dateStr);
+    var diff = Math.floor((now - d) / 1000);
+    if (diff < 60) return '刚刚';
+    if (diff < 3600) return Math.floor(diff / 60) + '分钟前';
+    if (diff < 86400) return Math.floor(diff / 3600) + '小时前';
+    if (diff < 2592000) return Math.floor(diff / 86400) + '天前';
+    return formatDate(dateStr);
+  }
+
+  function renderHeader(data) {
+    var user = data.user || {};
+    var avatar = document.getElementById('avatar');
+    if (user.avatar_url) {
+      avatar.src = user.avatar_url;
+      avatar.style.display = 'inline-block';
+    }
+    document.getElementById('username').textContent = user.username || '未知用户';
+    document.getElementById('bio').textContent = user.bio ? user.bio.replace(/<[^>]*>/g, '') : '';
+    var metaRow = document.getElementById('meta-row');
+    var metaHtml = '';
+    if (user.title) metaHtml += '<span>🏷️ ' + user.title + '</span>';
+    if (user.website) metaHtml += '<span>🔗 <a href="' + user.website + '" target="_blank" rel="noopener" style="color:var(--primary-light)">' + user.website + '</a></span>';
+    metaRow.innerHTML = metaHtml;
+
+    var statsBar = document.getElementById('stats-bar');
+    statsBar.style.display = 'flex';
+    document.getElementById('stat-posts').textContent = data.total_posts || 0;
+    var totalViews = 0, totalLikes = 0;
+    (data.posts || []).forEach(function(p) { totalViews += p.views || 0; totalLikes += p.like_count || 0; });
+    document.getElementById('stat-views').textContent = formatNumber(totalViews);
+    document.getElementById('stat-likes').textContent = formatNumber(totalLikes);
+    document.getElementById('stat-cats').textContent = Object.keys(data.categories || {}).length;
+
+    if (data.updated_at) {
+      document.getElementById('update-time').textContent = '最后更新: ' + formatDate(data.updated_at);
+    }
+  }
+
+  function renderCategories(data) {
+    categories = data.categories || {};
+    var catNav = document.getElementById('cat-nav');
+    catNav.style.display = 'block';
+    var catList = document.getElementById('cat-list');
+    var sortedCats = Object.entries(categories).sort(function(a, b) { return b[1] - a[1]; });
+    var html = '<li class="active" data-cat="all">全部 <span class="count">' + data.total_posts + '</span></li>';
+    sortedCats.forEach(function(entry) {
+      html += '<li data-cat="' + entry[0] + '">' + entry[0] + ' <span class="count">' + entry[1] + '</span></li>';
+    });
+    catList.innerHTML = html;
+    catList.addEventListener('click', function(e) {
+      var li = e.target.closest('li');
+      if (!li) return;
+      activeCategory = li.dataset.cat;
+      catList.querySelectorAll('li').forEach(function(el) { el.classList.remove('active'); });
+      li.classList.add('active');
+      renderPosts();
+    });
+  }
+
+  function renderPosts() {
+    var content = document.getElementById('content');
+    var filtered = allPosts.filter(function(p) {
+      if (activeCategory !== 'all' && p.category_name !== activeCategory) return false;
+      if (searchQuery && p.title.toLowerCase().indexOf(searchQuery.toLowerCase()) === -1) return false;
+      return true;
+    });
+    if (filtered.length === 0) {
+      content.innerHTML = '<div class="empty-state"><div class="icon">📭</div><p>暂无帖子</p></div>';
+      return;
+    }
+    var html = '<div class="post-list">';
+    filtered.forEach(function(p) {
+      html += '<a class="post-card" href="' + p.url + '" target="_blank" rel="noopener">';
+      html += '<div class="post-header">';
+      if (p.image_url) {
+        html += '<img class="post-thumb" src="' + p.image_url + '" alt="" loading="lazy" onerror="this.style.display=\'none\'">';
+      }
+      html += '<div class="post-info">';
+      html += '<div class="post-title">' + escapeHtml(p.title);
+      if (p.pinned) html += ' <span class="pin-badge">置顶</span>';
+      html += '</div>';
+      html += '<div class="post-meta">';
+      html += '<span class="cat-tag">' + escapeHtml(p.category_name) + '</span>';
+      html += '<span>📅 ' + timeAgo(p.created_at) + '</span>';
+      if (p.tags && p.tags.length > 0) {
+        p.tags.slice(0, 3).forEach(function(t) {
+          html += '<span>#' + escapeHtml(t) + '</span>';
+        });
+      }
+      html += '</div>';
+      html += '</div></div>';
+      if (p.excerpt) {
+        html += '<div class="post-excerpt">' + escapeHtml(p.excerpt) + '</div>';
+      }
+      html += '<div class="post-stats">';
+      html += '<span>👁 ' + formatNumber(p.views) + '</span>';
+      html += '<span>❤️ ' + formatNumber(p.like_count) + '</span>';
+      html += '<span>💬 ' + formatNumber(p.reply_count) + '</span>';
+      html += '</div>';
+      html += '</a>';
+    });
+    html += '</div>';
+    content.innerHTML = html;
+  }
+
+  function escapeHtml(str) {
+    if (!str) return '';
+    return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+
+  function showError(msg) {
+    var content = document.getElementById('content');
+    content.innerHTML = '<div class="error-state"><h3>⚠️ 加载失败</h3><p>' + escapeHtml(msg) + '</p><p style="margin-top:12px;font-size:0.85rem;color:var(--text-muted)">请稍后重试，或访问 <a href="https://forum.trae.cn/" target="_blank" rel="noopener" style="color:var(--primary-light)">TRAE官方论坛</a></p></div>';
+  }
+
+  function init() {
+    fetch(DATA_PATH)
+      .then(function(res) {
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        return res.json();
+      })
+      .then(function(data) {
+        if (!data || !data.posts) throw new Error('数据格式异常');
+        allPosts = data.posts || [];
+        renderHeader(data);
+        renderCategories(data);
+        renderPosts();
+      })
+      .catch(function(err) {
+        console.error('加载数据失败:', err);
+        showError('无法加载数据: ' + err.message);
+      });
+
+    var searchInput = document.getElementById('search-input');
+    var searchTimer = null;
+    searchInput.addEventListener('input', function() {
+      clearTimeout(searchTimer);
+      searchTimer = setTimeout(function() {
+        searchQuery = searchInput.value.trim();
+        renderPosts();
+      }, 300);
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+</script>
+</body>
+</html>
