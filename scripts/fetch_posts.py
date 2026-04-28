@@ -10,17 +10,6 @@ MAX_RETRIES = 3
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CONFIG_PATH = os.path.join(PROJECT_ROOT, "config.json")
 
-CATEGORY_MAP = {
-    4: "官方公告", 5: "新手入门", 6: "官方活动", 7: "帮助与支持",
-    8: "产品建议", 9: "技巧分享", 10: "案例与作品", 11: "互动交流",
-    12: "IDE入门", 14: "SOLO入门", 15: "社区直播", 16: "线下活动",
-    17: "产品更新", 18: "模型更新", 19: "政策公告", 20: "社区动态",
-    22: "Bug反馈", 23: "使用问题", 24: "账号与计费", 25: "作品展示",
-    26: "项目开源", 27: "功能咨询", 28: "其他帮助", 29: "福利活动",
-    30: "企业版专区", 31: "本周精选", 32: "活动打卡", 33: "社区伙伴",
-    35: "SOLO挑战赛专区",
-}
-
 
 def load_config():
     if not os.path.exists(CONFIG_PATH):
@@ -28,15 +17,6 @@ def load_config():
         return {"categories": {}}
     with open(CONFIG_PATH, "r", encoding="utf-8") as f:
         return json.load(f)
-
-
-def get_excluded_categories(config):
-    excluded = set()
-    cat_config = config.get("categories", {})
-    for cat_id, cat_name in CATEGORY_MAP.items():
-        if cat_name in cat_config and not cat_config[cat_name].get("visible", True):
-            excluded.add(cat_id)
-    return excluded
 
 
 def fetch_json(url, retries=MAX_RETRIES):
@@ -51,6 +31,29 @@ def fetch_json(url, retries=MAX_RETRIES):
                 time.sleep(REQUEST_DELAY * 2)
             else:
                 return None
+
+
+def fetch_category_map():
+    data = fetch_json(f"{FORUM_BASE}/site.json")
+    if not data:
+        print("  警告: 无法获取分类列表")
+        return {}
+    cat_map = {}
+    for cat in data.get("categories", []):
+        cat_id = cat.get("id")
+        name = cat.get("name", "")
+        if cat_id and name:
+            cat_map[cat_id] = name
+    return cat_map
+
+
+def get_excluded_ids(config, cat_map):
+    excluded = set()
+    cat_config = config.get("categories", {})
+    for cat_id, cat_name in cat_map.items():
+        if cat_name in cat_config and not cat_config[cat_name].get("visible", True):
+            excluded.add(cat_id)
+    return excluded
 
 
 def fetch_user_profile(username):
@@ -99,18 +102,9 @@ def fetch_user_topics(username):
     return all_topics
 
 
-def get_category_name(category_id):
-    return CATEGORY_MAP.get(category_id, f"未知分类({category_id})")
-
-
-def is_excluded(topic, excluded_ids):
+def process_topic(topic, cat_map):
     cat_id = topic.get("category_id", 0)
-    return cat_id in excluded_ids
-
-
-def process_topic(topic):
-    cat_id = topic.get("category_id", 0)
-    cat_name = get_category_name(cat_id)
+    cat_name = cat_map.get(cat_id, f"未知分类({cat_id})")
     tags = []
     for t in topic.get("tags", []):
         if isinstance(t, dict):
@@ -154,32 +148,37 @@ def main():
         sys.exit(1)
 
     config = load_config()
-    excluded_ids = get_excluded_categories(config)
-    excluded_names = [CATEGORY_MAP[i] for i in excluded_ids if i in CATEGORY_MAP]
-    print(f"=== 开始爬取用户 {username} 的帖子 ===")
+
+    print("[1/4] 获取论坛分类列表...")
+    cat_map = fetch_category_map()
+    print(f"  获取到 {len(cat_map)} 个分类")
+
+    excluded_ids = get_excluded_ids(config, cat_map)
+    excluded_names = [cat_map[i] for i in excluded_ids if i in cat_map]
     print(f"  已排除分类: {', '.join(excluded_names) if excluded_names else '无'}")
 
-    print("[1/3] 获取用户信息...")
+    print("[2/4] 获取用户信息...")
     profile = fetch_user_profile(username)
     if not profile:
         print("错误: 无法获取用户信息，请检查用户名是否正确")
         sys.exit(1)
     print(f"  用户: {profile['username']} (ID: {profile['id']})")
 
-    print("[2/3] 获取用户帖子...")
+    print("[3/4] 获取用户帖子...")
     raw_topics = fetch_user_topics(username)
     print(f"  共获取 {len(raw_topics)} 条帖子")
 
-    print("[3/3] 处理和筛选帖子...")
+    print("[4/4] 处理和筛选帖子...")
     filtered_topics = []
     excluded_count = 0
     for topic in raw_topics:
-        if is_excluded(topic, excluded_ids):
+        cat_id = topic.get("category_id", 0)
+        if cat_id in excluded_ids:
             excluded_count += 1
             continue
         if not topic.get("visible", True):
             continue
-        filtered_topics.append(process_topic(topic))
+        filtered_topics.append(process_topic(topic, cat_map))
     filtered_topics.sort(key=lambda x: x["created_at"], reverse=True)
 
     categories = {}

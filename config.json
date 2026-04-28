@@ -2,19 +2,19 @@
   "categories": {
     "技巧分享": { "color": "#0066FF", "soft": "#E8F0FE", "icon": "💡", "visible": true },
     "互动交流": { "color": "#00B4A6", "soft": "#E0F7F5", "icon": "💬", "visible": true },
-    "作品展示": { "color": "#7C5CFC", "soft": "#F0ECFF", "icon": "🎨", "visible": true },
+    "案例与作品": { "color": "#9EB83B", "soft": "#F2F8E8", "icon": "✨", "visible": true },
+    "项目实战": { "color": "#7C5CFC", "soft": "#F0ECFF", "icon": "🛠️", "visible": true },
+    "作品分享": { "color": "#F43F7A", "soft": "#FFF0F5", "icon": "🎨", "visible": true },
     "SOLO挑战赛专区": { "color": "#FF6B4A", "soft": "#FFF0EC", "icon": "🏆", "visible": true },
-    "项目开源": { "color": "#F5A623", "soft": "#FFF8E7", "icon": "📦", "visible": true },
-    "案例与作品": { "color": "#F43F7A", "soft": "#FFF0F5", "icon": "✨", "visible": true },
-    "官方公告": { "color": "#0066FF", "soft": "#E8F0FE", "icon": "📢", "visible": true },
-    "新手入门": { "color": "#00B4A6", "soft": "#E0F7F5", "icon": "🌱", "visible": true },
-    "官方活动": { "color": "#F5A623", "soft": "#FFF8E7", "icon": "🎉", "visible": true },
-    "帮助与支持": { "color": "#0066FF", "soft": "#E8F0FE", "icon": "🛟", "visible": true },
-    "福利活动": { "color": "#FF6B4A", "soft": "#FFF0EC", "icon": "🎁", "visible": true },
-    "企业版专区": { "color": "#7C5CFC", "soft": "#F0ECFF", "icon": "🏢", "visible": true },
-    "本周精选": { "color": "#F5A623", "soft": "#FFF8E7", "icon": "⭐", "visible": true },
-    "社区伙伴": { "color": "#00B4A6", "soft": "#E0F7F5", "icon": "🤝", "visible": true },
-    "产品建议": { "color": "#9499B3", "soft": "#EEF0F6", "icon": "📝", "visible": false },
-    "Bug反馈": { "color": "#9499B3", "soft": "#EEF0F6", "icon": "🐛", "visible": false }
+    "官方公告": { "color": "#BF1E2E", "soft": "#FDE8EA", "icon": "📢", "visible": true },
+    "新手入门": { "color": "#652D90", "soft": "#F0E8FA", "icon": "🌱", "visible": true },
+    "官方活动": { "color": "#F7941D", "soft": "#FDF5E3", "icon": "🎉", "visible": true },
+    "帮助与支持": { "color": "#3AB54A", "soft": "#E8F8EA", "icon": "🛟", "visible": true },
+    "福利活动": { "color": "#8C6238", "soft": "#F5EDE6", "icon": "🎁", "visible": true },
+    "企业版专区": { "color": "#808281", "soft": "#EEEFEE", "icon": "🏢", "visible": true },
+    "本周精选": { "color": "#ED207B", "soft": "#FDE8F0", "icon": "⭐", "visible": true },
+    "社区伙伴": { "color": "#92278F", "soft": "#F5E8F5", "icon": "🤝", "visible": true },
+    "产品建议": { "color": "#25AAE2", "soft": "#E6F5FC", "icon": "📝", "visible": false },
+    "Bug 反馈": { "color": "#9499B3", "soft": "#EEF0F6", "icon": "🐛", "visible": false }
   }
 }
