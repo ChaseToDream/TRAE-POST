@@ -62,7 +62,6 @@ def fetch_user_profile(username):
         "name": user.get("name", ""),
         "avatar_url": avatar_url,
         "title": user.get("title", ""),
-        "bio": user.get("bio_excerpt", ""),
         "website": user.get("website", ""),
         "trust_level": user.get("trust_level", 0),
         "created_at": user.get("created_at", ""),
