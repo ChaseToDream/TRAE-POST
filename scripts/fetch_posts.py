@@ -5,8 +5,11 @@ import time
 import requests
 
 FORUM_BASE = "https://forum.trae.cn"
-EXCLUDED_CATEGORIES = {8}
-EXCLUDED_SUBCATEGORIES = {22}
+REQUEST_DELAY = 2
+MAX_RETRIES = 3
+PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+CONFIG_PATH = os.path.join(PROJECT_ROOT, "config.json")
+
 CATEGORY_MAP = {
     4: "官方公告", 5: "新手入门", 6: "官方活动", 7: "帮助与支持",
     8: "产品建议", 9: "技巧分享", 10: "案例与作品", 11: "互动交流",
@@ -17,8 +20,23 @@ CATEGORY_MAP = {
     30: "企业版专区", 31: "本周精选", 32: "活动打卡", 33: "社区伙伴",
     35: "SOLO挑战赛专区",
 }
-REQUEST_DELAY = 2
-MAX_RETRIES = 3
+
+
+def load_config():
+    if not os.path.exists(CONFIG_PATH):
+        print(f"警告: 配置文件 {CONFIG_PATH} 不存在，使用默认配置")
+        return {"categories": {}}
+    with open(CONFIG_PATH, "r", encoding="utf-8") as f:
+        return json.load(f)
+
+
+def get_excluded_categories(config):
+    excluded = set()
+    cat_config = config.get("categories", {})
+    for cat_id, cat_name in CATEGORY_MAP.items():
+        if cat_name in cat_config and not cat_config[cat_name].get("visible", True):
+            excluded.add(cat_id)
+    return excluded
 
 
 def fetch_json(url, retries=MAX_RETRIES):
@@ -33,18 +51,6 @@ def fetch_json(url, retries=MAX_RETRIES):
                 time.sleep(REQUEST_DELAY * 2)
             else:
                 return None
-
-
-def fetch_categories():
-    data = fetch_json(f"{FORUM_BASE}/categories.json")
-    if not data:
-        return {}
-    result = {}
-    for cat in data.get("category_list", {}).get("categories", []):
-        result[cat["id"]] = cat["name"]
-        for sub_id in cat.get("subcategory_ids", []):
-            pass
-    return result
 
 
 def fetch_user_profile(username):
@@ -97,13 +103,9 @@ def get_category_name(category_id):
     return CATEGORY_MAP.get(category_id, f"未知分类({category_id})")
 
 
-def is_excluded(topic):
+def is_excluded(topic, excluded_ids):
     cat_id = topic.get("category_id", 0)
-    if cat_id in EXCLUDED_CATEGORIES:
-        return True
-    if cat_id in EXCLUDED_SUBCATEGORIES:
-        return True
-    return False
+    return cat_id in excluded_ids
 
 
 def process_topic(topic):
@@ -150,33 +152,43 @@ def main():
     if not username:
         print("错误: 请设置环境变量 FORUM_USERNAME")
         sys.exit(1)
+
+    config = load_config()
+    excluded_ids = get_excluded_categories(config)
+    excluded_names = [CATEGORY_MAP[i] for i in excluded_ids if i in CATEGORY_MAP]
     print(f"=== 开始爬取用户 {username} 的帖子 ===")
+    print(f"  已排除分类: {', '.join(excluded_names) if excluded_names else '无'}")
+
     print("[1/3] 获取用户信息...")
     profile = fetch_user_profile(username)
     if not profile:
         print("错误: 无法获取用户信息，请检查用户名是否正确")
         sys.exit(1)
     print(f"  用户: {profile['username']} (ID: {profile['id']})")
+
     print("[2/3] 获取用户帖子...")
     raw_topics = fetch_user_topics(username)
     print(f"  共获取 {len(raw_topics)} 条帖子")
+
     print("[3/3] 处理和筛选帖子...")
     filtered_topics = []
     excluded_count = 0
     for topic in raw_topics:
-        if is_excluded(topic):
+        if is_excluded(topic, excluded_ids):
             excluded_count += 1
             continue
         if not topic.get("visible", True):
             continue
         filtered_topics.append(process_topic(topic))
     filtered_topics.sort(key=lambda x: x["created_at"], reverse=True)
+
     categories = {}
     for t in filtered_topics:
         cat = t["category_name"]
         if cat not in categories:
             categories[cat] = 0
         categories[cat] += 1
+
     output = {
         "updated_at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
         "user": profile,
@@ -185,14 +197,16 @@ def main():
         "categories": categories,
         "posts": filtered_topics,
     }
-    output_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "data")
+
+    output_dir = os.path.join(PROJECT_ROOT, "data")
     os.makedirs(output_dir, exist_ok=True)
     output_path = os.path.join(output_dir, "posts.json")
     with open(output_path, "w", encoding="utf-8") as f:
         json.dump(output, f, ensure_ascii=False, indent=2)
+
     print(f"\n=== 完成 ===")
     print(f"  有效帖子: {len(filtered_topics)}")
-    print(f"  已排除: {excluded_count} (产品建议 + Bug反馈)")
+    print(f"  已排除: {excluded_count} ({', '.join(excluded_names)})")
     print(f"  分类统计: {json.dumps(categories, ensure_ascii=False)}")
     print(f"  输出文件: {output_path}")
 

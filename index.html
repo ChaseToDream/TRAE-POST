@@ -4,9 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>我的TRAE论坛帖子</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root {
   --accent: #0066FF;
@@ -36,8 +33,8 @@
   --radius-sm: 8px;
   --radius-md: 14px;
   --radius-lg: 20px;
-  --font-display: 'Outfit', 'Noto Sans SC', sans-serif;
-  --font-body: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-display: -apple-system, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  --font-body: -apple-system, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
   --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   --transition-slow: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -296,20 +293,6 @@ main { padding: 28px 0 64px; }
   letter-spacing: 0.02em;
   margin-bottom: 8px;
 }
-.cat-技巧分享 { background: var(--accent-soft); color: var(--accent); }
-.cat-互动交流 { background: var(--teal-soft); color: var(--teal); }
-.cat-作品展示 { background: var(--violet-soft); color: var(--violet); }
-.cat-SOLO挑战赛专区 { background: var(--coral-soft); color: var(--coral); }
-.cat-项目开源 { background: var(--amber-soft); color: var(--amber); }
-.cat-案例与作品 { background: var(--rose-soft); color: var(--rose); }
-.cat-官方公告 { background: var(--accent-soft); color: var(--accent); }
-.cat-新手入门 { background: var(--teal-soft); color: var(--teal); }
-.cat-官方活动 { background: var(--amber-soft); color: var(--amber); }
-.cat-帮助与支持 { background: var(--accent-soft); color: var(--accent); }
-.cat-福利活动 { background: var(--coral-soft); color: var(--coral); }
-.cat-企业版专区 { background: var(--violet-soft); color: var(--violet); }
-.cat-本周精选 { background: var(--amber-soft); color: var(--amber); }
-.cat-社区伙伴 { background: var(--teal-soft); color: var(--teal); }
 .post-card .card-title {
   font-family: var(--font-display);
   font-size: 0.98rem; font-weight: 600;
@@ -439,7 +422,6 @@ footer a:hover { text-decoration: underline; }
   .hero-inner { flex-direction: column; text-align: center; gap: 14px; }
   .hero-avatar { width: 68px; height: 68px; }
   .hero-username { font-size: 1.35rem; }
-  .hero-bio { margin: 0 auto; }
   .hero-meta { justify-content: center; }
   .stats-row { grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: -24px; }
   .stat-card { padding: 14px 10px; }
@@ -523,37 +505,20 @@ footer a:hover { text-decoration: underline; }
 <script>
 (function() {
   var DATA_PATH = 'data/posts.json';
+  var CONFIG_PATH = 'config.json';
   var allPosts = [];
   var categories = {};
   var activeCategory = 'all';
   var searchQuery = '';
   var viewMode = 'grouped';
   var catNav = document.getElementById('cat-nav');
+  var catConfig = {};
 
-  var catColors = {
-    '技巧分享': { color: '#0066FF', soft: '#E8F0FE' },
-    '互动交流': { color: '#00B4A6', soft: '#E0F7F5' },
-    '作品展示': { color: '#7C5CFC', soft: '#F0ECFF' },
-    'SOLO挑战赛专区': { color: '#FF6B4A', soft: '#FFF0EC' },
-    '项目开源': { color: '#F5A623', soft: '#FFF8E7' },
-    '案例与作品': { color: '#F43F7A', soft: '#FFF0F5' },
-    '官方公告': { color: '#0066FF', soft: '#E8F0FE' },
-    '新手入门': { color: '#00B4A6', soft: '#E0F7F5' },
-    '官方活动': { color: '#F5A623', soft: '#FFF8E7' },
-    '帮助与支持': { color: '#0066FF', soft: '#E8F0FE' },
-    '福利活动': { color: '#FF6B4A', soft: '#FFF0EC' },
-    '企业版专区': { color: '#7C5CFC', soft: '#F0ECFF' },
-    '本周精选': { color: '#F5A623', soft: '#FFF8E7' },
-    '社区伙伴': { color: '#00B4A6', soft: '#E0F7F5' }
-  };
+  var DEFAULT_CAT = { color: '#9499B3', soft: '#EEF0F6', icon: '📁', visible: true };
 
-  var catIcons = {
-    '技巧分享': '💡', '互动交流': '💬', '作品展示': '🎨',
-    'SOLO挑战赛专区': '🏆', '项目开源': '📦', '案例与作品': '✨',
-    '官方公告': '📢', '新手入门': '🌱', '官方活动': '🎉',
-    '帮助与支持': '🛟', '福利活动': '🎁', '企业版专区': '🏢',
-    '本周精选': '⭐', '社区伙伴': '🤝'
-  };
+  function getCatConf(name) {
+    return catConfig[name] || DEFAULT_CAT;
+  }
 
   function fmt(n) {
     if (n >= 10000) return (n / 10000).toFixed(1) + 'w';
@@ -580,10 +545,6 @@ footer a:hover { text-decoration: underline; }
   function esc(s) {
     if (!s) return '';
     return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-  }
-
-  function catClass(name) {
-    return 'cat-' + name.replace(/[^a-zA-Z\u4e00-\u9fff]/g, '');
   }
 
   function renderHeader(data) {
@@ -618,7 +579,7 @@ footer a:hover { text-decoration: underline; }
     var sorted = Object.entries(categories).sort(function(a,b){return b[1]-a[1];});
     var h = '<button class="cat-btn active" data-cat="all"><span class="cat-dot" style="background:linear-gradient(135deg,var(--accent),var(--teal))"></span>全部 <span class="cnt">' + data.total_posts + '</span></button>';
     sorted.forEach(function(e) {
-      var cc = catColors[e[0]] || { color: '#9499B3', soft: '#EEF0F6' };
+      var cc = getCatConf(e[0]);
       h += '<button class="cat-btn" data-cat="' + esc(e[0]) + '"><span class="cat-dot" style="background:' + cc.color + '"></span>' + esc(e[0]) + ' <span class="cnt">' + e[1] + '</span></button>';
     });
     list.innerHTML = h;
@@ -633,16 +594,16 @@ footer a:hover { text-decoration: underline; }
   }
 
   function buildCard(p, delay) {
-    var cc = catColors[p.category_name] || { color: '#9499B3', soft: '#EEF0F6' };
+    var cc = getCatConf(p.category_name);
     var d = Math.min(delay, 0.6);
     var h = '<a class="post-card" href="' + p.url + '" target="_blank" rel="noopener" style="animation-delay:' + d + 's">';
     if (p.image_url) {
-      h += '<div class="card-img-wrap"><img class="card-img" src="' + p.image_url + '" alt="" loading="lazy" onerror="this.parentElement.outerHTML=\'<div class=card-img-placeholder style=background:' + cc.soft + '>' + (catIcons[p.category_name]||'📄') + '</div>\'"></div>';
+      h += '<div class="card-img-wrap"><img class="card-img" src="' + p.image_url + '" alt="" loading="lazy" onerror="this.parentElement.outerHTML=\'<div class=card-img-placeholder style=background:' + cc.soft + '>' + cc.icon + '</div>\'"></div>';
     } else {
-      h += '<div class="card-img-placeholder" style="background:' + cc.soft + '">' + (catIcons[p.category_name]||'📄') + '</div>';
+      h += '<div class="card-img-placeholder" style="background:' + cc.soft + '">' + cc.icon + '</div>';
     }
     h += '<div class="card-body">';
-    h += '<span class="card-cat ' + catClass(p.category_name) + '">' + esc(p.category_name) + '</span>';
+    h += '<span class="card-cat" style="background:' + cc.soft + ';color:' + cc.color + '">' + esc(p.category_name) + '</span>';
     h += '<div class="card-title">' + esc(p.title);
     if (p.pinned) h += '<span class="pin-icon">📌 置顶</span>';
     h += '</div>';
@@ -677,11 +638,11 @@ footer a:hover { text-decoration: underline; }
     sortedCats.forEach(function(entry) {
       var catName = entry[0];
       var posts = entry[1];
-      var cc = catColors[catName] || { color: '#9499B3', soft: '#EEF0F6' };
+      var cc = getCatConf(catName);
       h += '<div class="cat-section" style="animation-delay:' + secDelay + 's">';
       h += '<div class="cat-section-header">';
       h += '<span class="cat-section-dot" style="background:' + cc.color + '"></span>';
-      h += '<span class="cat-section-title">' + (catIcons[catName]||'📁') + ' ' + esc(catName) + '</span>';
+      h += '<span class="cat-section-title">' + cc.icon + ' ' + esc(catName) + '</span>';
       h += '<span class="cat-section-count">' + posts.length + ' 篇</span>';
       h += '</div>';
       h += '<div class="posts-grid">';
@@ -727,7 +688,12 @@ footer a:hover { text-decoration: underline; }
   }
 
   function init() {
-    fetch(DATA_PATH)
+    fetch(CONFIG_PATH)
+      .then(function(r){ if(!r.ok) return {}; return r.json(); })
+      .then(function(cfg){
+        catConfig = (cfg && cfg.categories) || {};
+        return fetch(DATA_PATH);
+      })
       .then(function(r){ if(!r.ok) throw new Error('HTTP '+r.status); return r.json(); })
       .then(function(data){
         if(!data||!data.posts) throw new Error('数据格式异常');
