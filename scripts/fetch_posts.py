@@ -256,7 +256,7 @@ def validate_posts(posts):
     return report
 
 
-def main():
+def validate_environment():
     username = os.environ.get("FORUM_USERNAME", "")
     if not username:
         print("错误: 请设置环境变量 FORUM_USERNAME")
@@ -265,9 +265,10 @@ def main():
     if not username:
         print("错误: FORUM_USERNAME 不能为空")
         sys.exit(1)
+    return username
 
-    config = load_config()
 
+def fetch_forum_data(username, config):
     print("[1/4] 获取论坛分类列表...")
     cat_map, sub_cat_map = fetch_category_map()
     if not cat_map:
@@ -300,6 +301,10 @@ def main():
     raw_topics = fetch_user_topics(username)
     print(f"  共获取 {len(raw_topics)} 条帖子")
 
+    return cat_map, sub_cat_map, excluded_ids, excluded_names, profile, raw_topics
+
+
+def process_and_filter_topics(raw_topics, cat_map, sub_cat_map, excluded_ids):
     print("[4/4] 处理和筛选帖子...")
     filtered_topics = []
     excluded_count = 0
@@ -319,7 +324,10 @@ def main():
             seen_filtered_ids.add(tid)
         filtered_topics.append(processed)
     filtered_topics.sort(key=lambda x: x["created_at"], reverse=True)
+    return filtered_topics, excluded_count
 
+
+def build_output_data(profile, filtered_topics, excluded_count, raw_topics, excluded_names):
     validation = validate_posts(filtered_topics)
     if validation["missing_title"] > 0 or validation["missing_date"] > 0:
         print(f"  数据质量: {validation['valid']}/{validation['total']} 完整, "
@@ -351,19 +359,35 @@ def main():
             }
         }
     }
+    return output, validation
 
+
+def save_output_file(output_data):
     output_dir = os.path.join(PROJECT_ROOT, "data")
     os.makedirs(output_dir, exist_ok=True)
     output_path = os.path.join(output_dir, "posts.json")
     with open(output_path, "w", encoding="utf-8") as f:
-        json.dump(output, f, ensure_ascii=False, indent=2)
+        json.dump(output_data, f, ensure_ascii=False, indent=2)
+    return output_path
 
+
+def print_summary(filtered_topics, excluded_count, excluded_names, validation, categories, output_path):
     print(f"\n=== 完成 ===")
     print(f"  有效帖子: {len(filtered_topics)}")
     print(f"  已排除: {excluded_count} ({', '.join(excluded_names) if excluded_names else '无'})")
     print(f"  分类统计: {json.dumps(categories, ensure_ascii=False)}")
     print(f"  数据完整率: {validation['valid']}/{validation['total']}")
     print(f"  输出文件: {output_path}")
+
+
+def main():
+    username = validate_environment()
+    config = load_config()
+    cat_map, sub_cat_map, excluded_ids, excluded_names, profile, raw_topics = fetch_forum_data(username, config)
+    filtered_topics, excluded_count = process_and_filter_topics(raw_topics, cat_map, sub_cat_map, excluded_ids)
+    output, validation = build_output_data(profile, filtered_topics, excluded_count, raw_topics, excluded_names)
+    output_path = save_output_file(output)
+    print_summary(filtered_topics, excluded_count, excluded_names, validation, output["categories"], output_path)
 
 
 if __name__ == "__main__":
