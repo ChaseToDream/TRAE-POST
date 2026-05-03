@@ -454,35 +454,58 @@ footer a:hover { text-decoration: underline; }
   var activeCategory = 'all';
   var searchQuery = '';
   var catConfig = {};
+  var updatedAt = '';
   var DEFAULT_CAT = { color: '#9BA3B5', soft: '#EDF0F7', icon: '📁', visible: true };
 
   function cc(name) { return catConfig[name] || DEFAULT_CAT; }
 
   function fmt(n) {
-    if (n >= 10000) return (n / 10000).toFixed(1) + 'w';
-    if (n >= 1000) return (n / 1000).toFixed(1) + 'k';
+    if (n == null || isNaN(n)) return '0';
+    n = Number(n);
+    if (n >= 10000) {
+      var v = n / 10000;
+      return v % 1 === 0 ? v + 'w' : v.toFixed(1) + 'w';
+    }
+    if (n >= 1000) {
+      var v2 = n / 1000;
+      return v2 % 1 === 0 ? v2 + 'k' : v2.toFixed(1) + 'k';
+    }
     return String(n);
   }
 
   function fmtDate(s) {
     if (!s) return '';
     var d = new Date(s);
+    if (isNaN(d.getTime())) return '';
     return d.getFullYear() + '.' + String(d.getMonth()+1).padStart(2,'0') + '.' + String(d.getDate()).padStart(2,'0');
   }
 
   function timeAgo(s) {
     if (!s) return '';
-    var diff = Math.floor((Date.now() - new Date(s)) / 1000);
+    var ref = updatedAt ? new Date(updatedAt) : new Date();
+    var diff = Math.floor((ref.getTime() - new Date(s).getTime()) / 1000);
+    if (diff < 0) return fmtDate(s);
     if (diff < 60) return '刚刚';
     if (diff < 3600) return Math.floor(diff/60) + '分钟前';
     if (diff < 86400) return Math.floor(diff/3600) + '小时前';
     if (diff < 2592000) return Math.floor(diff/86400) + '天前';
+    if (diff < 31536000) return Math.floor(diff/2592000) + '个月前';
     return fmtDate(s);
   }
 
   function esc(s) {
     if (!s) return '';
     return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  function validateSchema(data) {
+    if (!data || typeof data !== 'object') return '数据格式无效';
+    if (!Array.isArray(data.posts)) return '缺少 posts 数组';
+    if (data.posts.length > 0) {
+      var p = data.posts[0];
+      if (!p.hasOwnProperty('title') || !p.hasOwnProperty('id')) return 'posts 缺少必要字段';
+    }
+    return null;
   }
 
   function renderHeader(data) {
@@ -501,28 +524,53 @@ footer a:hover { text-decoration: underline; }
     document.getElementById('stat-views').textContent = fmt(tv);
     document.getElementById('stat-likes').textContent = fmt(tl);
     document.getElementById('stat-cats').textContent = Object.keys(data.categories||{}).length;
-    if (data.updated_at) document.getElementById('update-time').textContent = '最后更新: ' + fmtDate(data.updated_at);
+    if (data.updated_at) {
+      updatedAt = data.updated_at;
+      document.getElementById('update-time').textContent = '最后更新: ' + fmtDate(data.updated_at);
+    }
   }
 
   function renderCategories(data) {
     categories = data.categories || {};
     document.getElementById('toolbar').style.display = 'block';
+    updateCatTabs(data.total_posts);
     var list = document.getElementById('cat-list');
-    var sorted = Object.entries(categories).sort(function(a,b){return b[1]-a[1];});
-    var h = '<button class="cat-tab active" data-cat="all"><span class="dot" style="background:linear-gradient(135deg,var(--accent),var(--teal))"></span>全部 <span class="cnt">' + data.total_posts + '</span></button>';
-    sorted.forEach(function(e) {
-      var c = cc(e[0]);
-      h += '<button class="cat-tab" data-cat="' + esc(e[0]) + '"><span class="dot" style="background:' + c.color + '"></span>' + esc(e[0]) + ' <span class="cnt">' + e[1] + '</span></button>';
-    });
-    list.innerHTML = h;
     list.addEventListener('click', function(e) {
       var btn = e.target.closest('.cat-tab');
       if (!btn) return;
       activeCategory = btn.dataset.cat;
       list.querySelectorAll('.cat-tab').forEach(function(el){el.classList.remove('active');});
       btn.classList.add('active');
+      updateCatTabs(null);
       renderPosts();
     });
+  }
+
+  function updateCatTabs(allTotal) {
+    var list = document.getElementById('cat-list');
+    var total = allTotal != null ? allTotal : allPosts.length;
+    var filtered = searchQuery ? allPosts.filter(function(p) {
+      return matchSearch(p, searchQuery);
+    }) : allPosts;
+    var h = '<button class="cat-tab' + (activeCategory === 'all' ? ' active' : '') + '" data-cat="all"><span class="dot" style="background:linear-gradient(135deg,var(--accent),var(--teal))"></span>全部 <span class="cnt">' + filtered.length + '</span></button>';
+    var grouped = {};
+    filtered.forEach(function(p) {
+      grouped[p.category_name] = (grouped[p.category_name] || 0) + 1;
+    });
+    var sorted = Object.entries(grouped).sort(function(a,b){return b[1]-a[1];});
+    sorted.forEach(function(e) {
+      var c = cc(e[0]);
+      h += '<button class="cat-tab' + (activeCategory === e[0] ? ' active' : '') + '" data-cat="' + esc(e[0]) + '"><span class="dot" style="background:' + c.color + '"></span>' + esc(e[0]) + ' <span class="cnt">' + e[1] + '</span></button>';
+    });
+    list.innerHTML = h;
+  }
+
+  function matchSearch(p, q) {
+    if (!q) return true;
+    q = q.toLowerCase();
+    return (p.title && p.title.toLowerCase().indexOf(q) !== -1) ||
+           (p.excerpt && p.excerpt.toLowerCase().indexOf(q) !== -1) ||
+           (p.category_name && p.category_name.toLowerCase().indexOf(q) !== -1);
   }
 
   function buildItem(p) {
@@ -601,7 +649,7 @@ footer a:hover { text-decoration: underline; }
     var content = document.getElementById('content');
     var filtered = allPosts.filter(function(p) {
       if (activeCategory !== 'all' && p.category_name !== activeCategory) return false;
-      if (searchQuery && p.title.toLowerCase().indexOf(searchQuery.toLowerCase()) === -1) return false;
+      if (searchQuery && !matchSearch(p, searchQuery)) return false;
       return true;
     });
     if (!filtered.length) {
@@ -629,6 +677,8 @@ footer a:hover { text-decoration: underline; }
       .then(function(r){ if(!r.ok) throw new Error('HTTP '+r.status); return r.json(); })
       .then(function(data){
         if(!data||!data.posts) throw new Error('数据格式异常');
+        var schemaErr = validateSchema(data);
+        if (schemaErr) throw new Error(schemaErr);
         allPosts = data.posts||[];
         renderHeader(data);
         renderCategories(data);
@@ -640,7 +690,7 @@ footer a:hover { text-decoration: underline; }
     var st = null;
     si.addEventListener('input', function(){
       clearTimeout(st);
-      st = setTimeout(function(){ searchQuery = si.value.trim(); renderPosts(); }, 200);
+      st = setTimeout(function(){ searchQuery = si.value.trim(); updateCatTabs(null); renderPosts(); }, 200);
     });
 
     var header = document.getElementById('site-header');

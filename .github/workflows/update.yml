@@ -24,9 +24,25 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Fetch forum posts
+        id: fetch
         env:
           FORUM_USERNAME: ${{ secrets.FORUM_USERNAME }}
         run: python scripts/fetch_posts.py
+
+      - name: Verify output
+        id: verify
+        run: |
+          if [ ! -f data/posts.json ]; then
+            echo "错误: posts.json 未生成" >&2
+            exit 1
+          fi
+          total=$(python -c "import json; d=json.load(open('data/posts.json','r',encoding='utf-8')); print(d.get('total_posts',-1))")
+          if [ "$total" -lt 0 ]; then
+            echo "错误: posts.json 数据无效" >&2
+            exit 1
+          fi
+          echo "total_posts=$total" >> $GITHUB_OUTPUT
+          echo "输出验证通过: $total 条帖子"
 
       - name: Check for changes
         id: check_changes
