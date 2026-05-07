@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-05-07T17:46:01Z",
+  "updated_at": "2026-05-07T21:02:53Z",
   "user": {
     "id": 903,
     "username": "JasonShane",
@@ -128,7 +128,7 @@
       "tags": [],
       "excerpt": "你的运行环境（版本号「点击帮助-关于-复制」）： \n\nTRAE SOLO CN \n版本: 0.1.7 \n提交: efa016a6172af803a301f1ddaba2c7bd2eb56c84 \n日期: 2026-04-30T12:18:5...",
       "image_url": "https://trae-forum-cdn.trae.com.cn/prod/optimized/3X/6/2/62f5228bd95487a0eb4893faef6af85f99741e44_2_1024x666.png",
-      "views": 147,
+      "views": 148,
       "like_count": 17,
       "reply_count": 10,
       "posts_count": 18,
@@ -479,7 +479,7 @@
       ],
       "excerpt": "TRAE IDE的.51版本灰度了自定义base url功能(国内版v3.3.51，国际版v3.5.51)，但是论坛和社群有很多人都出现了配置错误，在这里出一份简易教程，以国内版TRAE IDE为例 \n报！本地自建大模型服务接入的我看到有很...",
       "image_url": "https://trae-forum-cdn.trae.com.cn/prod/original/3X/7/5/7547052c106037d1c7dc2674e24a41631da06303.png",
-      "views": 1156,
+      "views": 1158,
       "like_count": 33,
       "reply_count": 14,
       "posts_count": 28,
@@ -500,7 +500,7 @@
       ],
       "excerpt": "安装Pencil插件\n首先打开TRAE扩展，搜索Pencil插件并安装 \n如果搜索不到，尝试搜索pen寻找，此bug已反馈 关于TRAE IDE插件搜索Pencil的bug问题 \n  \n安装成功后重启TRAE，启动Pencil插件 \n注册登...",
       "image_url": "https://trae-forum-cdn.trae.com.cn/prod/optimized/3X/f/3/f3daf8ed70eb8766f059f456ce5a67271c590045_2_1024x547.png",
-      "views": 803,
+      "views": 804,
       "like_count": 21,
       "reply_count": 22,
       "posts_count": 31,
