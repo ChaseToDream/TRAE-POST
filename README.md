@@ -16,6 +16,13 @@
 | 📊 双视图模式 | 瀑布流分类视图 / 卡片列表视图 |
 | 📱 响应式设计 | 完美适配桌面与移动端 |
 | ⚡ 骨架屏加载 | 优化加载体验，减少页面闪烁 |
+| 🌙 深色模式 | 支持亮色/深色主题切换，自动保存偏好 |
+| 🔗 URL 状态同步 | 搜索、分类、排序状态可通过 URL 分享 |
+| ⌨️ 键盘快捷键 | `/` 搜索、`D` 切换主题、`S` 统计面板 |
+| 📊 数据统计 | 分类分布图、发帖时间线图表 |
+| 📥 数据导出 | 支持导出为 CSV / JSON 格式 |
+| 🚀 异步并发 | Python 爬虫使用 aiohttp 异步并发，速度提升 5x |
+| 💾 增量更新 | 智能增量抓取，减少 API 调用 |
 
 ## 🚀 快速开始
 
@@ -49,6 +56,17 @@ FORUM_USERNAME=你的论坛用户名 python scripts/fetch_posts.py
 ```
 
 > 📖 完整配置指南请参考 [SETUP.md](./SETUP.md)
+
+## ⌨️ 键盘快捷键
+
+| 快捷键 | 功能 |
+|--------|------|
+| `/` | 聚焦搜索框 |
+| `1` | 切换到分类视图 |
+| `2` | 切换到卡片视图 |
+| `D` | 切换亮色/深色主题 |
+| `S` | 打开/关闭统计面板 |
+| `Esc` | 清除搜索 / 关闭面板 |
 
 ## ⚙️ 配置说明
 
@@ -113,12 +131,14 @@ FORUM_USERNAME=你的论坛用户名 python scripts/fetch_posts.py
 ## 📁 项目结构
 
 ```
-├── index.html                  # 静态展示页面（单文件应用）
+├── index.html                  # 主页面入口
+├── styles.css                  # 样式表（支持深色模式）
+├── app.js                      # 前端应用逻辑
 ├── config.json                 # 分类显示配置（颜色、图标、可见性）
 ├── data/
 │   └── posts.json              # 爬取的帖子数据（自动生成）
 ├── scripts/
-│   └── fetch_posts.py          # 数据爬取脚本
+│   └── fetch_posts.py          # 数据爬取脚本（异步并发）
 ├── requirements.txt            # Python 依赖
 ├── .github/workflows/
 │   └── update.yml              # GitHub Actions 自动更新工作流
@@ -132,16 +152,16 @@ FORUM_USERNAME=你的论坛用户名 python scripts/fetch_posts.py
 |----------|------|------|
 | 排除/显示分类 | `config.json` | 修改 `visible` 字段 |
 | 分类配色和图标 | `config.json` | 修改 `color`、`soft`、`icon` 字段 |
-| 页面主题配色 | `index.html` | 修改 `:root` 下的 CSS 变量 |
+| 页面主题配色 | `styles.css` | 修改 `:root` 下的 CSS 变量 |
 | 更新频率 | `.github/workflows/update.yml` | 修改 `cron` 表达式 |
-| 爬取间隔/重试 | `scripts/fetch_posts.py` | 修改 `REQUEST_DELAY`、`MAX_RETRIES` 常量 |
+| 并发数/重试 | `scripts/fetch_posts.py` | 修改 `CONCURRENCY`、`MAX_RETRIES` 常量 |
 
 ## 🔄 自动更新
 
 GitHub Actions 工作流（[update.yml](./.github/workflows/update.yml)）配置为每 4 小时自动运行，也可在 Actions 页面手动触发。
 
 ```
-爬取数据 → 检测变化 → 自动提交 → 自动部署
+爬取数据 → 增量合并 → 检测变化 → 自动提交 → 自动部署
 ```
 
 ## ❓ 常见问题

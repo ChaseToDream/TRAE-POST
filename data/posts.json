@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-05-10T09:26:19Z",
+  "updated_at": "2026-05-10T10:29:00Z",
   "user": {
     "id": 903,
     "username": "JasonShane",
@@ -29,7 +29,7 @@
       "category_id": 7,
       "category_name": "帮助与支持",
       "tags": [],
-      "excerpt": "你的运行环境（版本号「点击帮助-关于-复制」）： \n\nTRAE SOLO CN \n版本: 0.1.7 \n提交: efa016a6172af803a301f1ddaba2c7bd2eb56c84 \n日期: 2026-04-30T12:18:5...",
+      "excerpt": "你的运行环境（版本号「点击帮助-关于-复制」）： \n\nTRAE SOLO CN \n版本: 0.1.7 \n提交: efa016a6172af803a301f1ddaba2c7bd2eb56c84 \n日期: 2026-04-30T12:18:5…",
       "image_url": "https://trae-forum-cdn.trae.com.cn/prod/optimized/3X/f/9/f9cb96673753e0fdc59dc1af045ae3e09f5949ef_2_1024x662.png",
       "views": 2,
       "like_count": 0,
@@ -50,9 +50,9 @@
       "tags": [
         "基础技巧"
       ],
-      "excerpt": "关于git分支在 Git全书 · 其二丨常用Git指令及原理中提到了一些，并且在之前的操作中我们都保持在主分支main进行操作，接下来本篇章围绕着git分支进行展开！ \n已经有版本管理记录了，为什么还要有分支机制？ \n我们以单机游戏为例，g...",
+      "excerpt": "关于git分支在 Git全书 · 其二丨常用Git指令及原理中提到了一些，并且在之前的操作中我们都保持在主分支main进行操作，接下来本篇章围绕着git分支进行展开！ \n已经有版本管理记录了，为什么还要有分支机制？ \n我们以单机游戏为例，g…",
       "image_url": "https://trae-forum-cdn.trae.com.cn/prod/optimized/3X/b/e/bef5d2f900a8c40a6d1a59b8fab0ca2c3b1566e8_2_1024x626.jpeg",
-      "views": 18,
+      "views": 19,
       "like_count": 1,
       "reply_count": 0,
       "posts_count": 4,
@@ -71,7 +71,7 @@
       "tags": [
         "基础技巧"
       ],
-      "excerpt": "Git 命令清单\n一、基础配置\n全局配置\n\n# 设置用户名\n\n$ git config --global user.name \"Your Name\"\n\n# 设置邮箱\n\n$ git config --global user.email \"yo...",
+      "excerpt": "Git 命令清单\n一、基础配置\n全局配置\n\n# 设置用户名\n\n$ git config --global user.name \"Your Name\"\n\n# 设置邮箱\n\n$ git config --global user.email \"yo…",
       "image_url": "",
       "views": 33,
       "like_count": 5,
@@ -92,7 +92,7 @@
       "tags": [
         "SOLO三端实测"
       ],
-      "excerpt": "为庆祝SOLO三端全量上线，结合官方的新活动，今天就从零开始使用三端SOLO协同开发一个项目！ \n\n网页端让你在任何联网的电脑中快速使用，桌面端让你能够云端+本地自由开发，移动端让你随时随地无虑开发！ \n\n最终效果： \n  \n \n预备节\n首...",
+      "excerpt": "为庆祝SOLO三端全量上线，结合官方的新活动，今天就从零开始使用三端SOLO协同开发一个项目！ \n\n网页端让你在任何联网的电脑中快速使用，桌面端让你能够云端+本地自由开发，移动端让你随时随地无虑开发！ \n\n最终效果： \n  \n \n预备节\n首…",
       "image_url": "https://trae-forum-cdn.trae.com.cn/prod/optimized/3X/5/a/5a355ec40487371c45d8b5e07400fcf2d2671adf_2_1024x478.jpeg",
       "views": 90,
       "like_count": 12,
@@ -111,7 +111,7 @@
       "category_id": 7,
       "category_name": "帮助与支持",
       "tags": [],
-      "excerpt": "你的运行环境（版本号「点击帮助-关于-复制」）： \n\nTRAE SOLO CN \n版本: 0.1.7 \n提交: efa016a6172af803a301f1ddaba2c7bd2eb56c84 \n日期: 2026-04-30T12:18:5...",
+      "excerpt": "你的运行环境（版本号「点击帮助-关于-复制」）： \n\nTRAE SOLO CN \n版本: 0.1.7 \n提交: efa016a6172af803a301f1ddaba2c7bd2eb56c84 \n日期: 2026-04-30T12:18:5…",
       "image_url": "https://trae-forum-cdn.trae.com.cn/prod/optimized/3X/c/3/c3d14347e2350ab1bf4048c564f019d2d23043f7_2_1024x586.png",
       "views": 18,
       "like_count": 9,
@@ -130,7 +130,7 @@
       "category_id": 7,
       "category_name": "帮助与支持",
       "tags": [],
-      "excerpt": "你的运行环境（版本号「点击帮助-关于-复制」）： \n\nTRAE SOLO CN \n版本: 0.1.7 \n提交: efa016a6172af803a301f1ddaba2c7bd2eb56c84 \n日期: 2026-04-30T12:18:5...",
+      "excerpt": "你的运行环境（版本号「点击帮助-关于-复制」）： \n\nTRAE SOLO CN \n版本: 0.1.7 \n提交: efa016a6172af803a301f1ddaba2c7bd2eb56c84 \n日期: 2026-04-30T12:18:5…",
       "image_url": "https://trae-forum-cdn.trae.com.cn/prod/optimized/3X/6/0/60cbb832508df16b214f58e2c623f9c8ab267855_2_1024x487.png",
       "views": 14,
       "like_count": 3,
@@ -149,7 +149,7 @@
       "category_id": 7,
       "category_name": "帮助与支持",
       "tags": [],
-      "excerpt": "你的运行环境（版本号「点击帮助-关于-复制」）： \n\nTRAE SOLO CN \n版本: 0.1.7 \n提交: efa016a6172af803a301f1ddaba2c7bd2eb56c84 \n日期: 2026-04-30T12:18:5...",
+      "excerpt": "你的运行环境（版本号「点击帮助-关于-复制」）： \n\nTRAE SOLO CN \n版本: 0.1.7 \n提交: efa016a6172af803a301f1ddaba2c7bd2eb56c84 \n日期: 2026-04-30T12:18:5…",
       "image_url": "https://trae-forum-cdn.trae.com.cn/prod/original/3X/2/5/25d1b92ef6418668256f3e4017ade0fcab22209d.png",
       "views": 26,
       "like_count": 5,
@@ -168,7 +168,7 @@
       "category_id": 7,
       "category_name": "帮助与支持",
       "tags": [],
-      "excerpt": "你的运行环境（版本号「点击帮助-关于-复制」）： \n\nSOLO移动端 安卓 \n\n问题描述（你遇到了什么问题？）： \n\n在移动端SOLO的语音输入下，按住进行语音操作，但说话停顿后会出现未松手确认语音就自动输入提示词的情况 \n\n复现步骤（如何...",
+      "excerpt": "你的运行环境（版本号「点击帮助-关于-复制」）： \n\nSOLO移动端 安卓 \n\n问题描述（你遇到了什么问题？）： \n\n在移动端SOLO的语音输入下，按住进行语音操作，但说话停顿后会出现未松手确认语音就自动输入提示词的情况 \n\n复现步骤（如何…",
       "image_url": "https://trae-forum-cdn.trae.com.cn/prod/optimized/3X/6/a/6affbdec9789e450c76d3e9f1c5bfa44b9fe441f_2_488x1024.jpeg",
       "views": 21,
       "like_count": 3,
@@ -187,9 +187,9 @@
       "category_id": 7,
       "category_name": "帮助与支持",
       "tags": [],
-      "excerpt": "你的运行环境（版本号「点击帮助-关于-复制」）： \n\nTRAE SOLO CN \n版本: 0.1.7 \n提交: efa016a6172af803a301f1ddaba2c7bd2eb56c84 \n日期: 2026-04-30T12:18:5...",
+      "excerpt": "你的运行环境（版本号「点击帮助-关于-复制」）： \n\nTRAE SOLO CN \n版本: 0.1.7 \n提交: efa016a6172af803a301f1ddaba2c7bd2eb56c84 \n日期: 2026-04-30T12:18:5…",
       "image_url": "https://trae-forum-cdn.trae.com.cn/prod/optimized/3X/6/2/62f5228bd95487a0eb4893faef6af85f99741e44_2_1024x666.png",
-      "views": 230,
+      "views": 231,
       "like_count": 17,
       "reply_count": 13,
       "posts_count": 23,
@@ -208,9 +208,9 @@
       "tags": [
         "基础技巧"
       ],
-      "excerpt": "还未安装Git软件的伙伴可以前往上一篇教程： Git全书 · 其一丨Git软件/环境安装全流程 \n以下内容均默认已配置好Git本地环境，默认已经配置完成全局用户名及邮箱，如果没有查阅上述教程！ \n\n在此我啰嗦几句，虽然目前各大IDE或者AI...",
+      "excerpt": "还未安装Git软件的伙伴可以前往上一篇教程： Git全书 · 其一丨Git软件/环境安装全流程 \n以下内容均默认已配置好Git本地环境，默认已经配置完成全局用户名及邮箱，如果没有查阅上述教程！ \n\n在此我啰嗦几句，虽然目前各大IDE或者AI…",
       "image_url": "https://trae-forum-cdn.trae.com.cn/prod/original/3X/c/c/cc54a09436279851d36806ee325affbf6d52ac87.jpeg",
-      "views": 54,
+      "views": 55,
       "like_count": 2,
       "reply_count": 0,
       "posts_count": 4,
@@ -229,9 +229,9 @@
       "tags": [
         "基础技巧"
       ],
-      "excerpt": "本地环境\n\nWindows 11\n\n注：macOS、Linux等其他系统可以询问AI或进行互联网检索 \nGit有什么用？\n你是否在AI辅助开发过程中出现不满意或者被AI误删除关键文件，想退回某一时刻？Git为解决这个问题而生(Git有更加复...",
+      "excerpt": "本地环境\n\nWindows 11\n\n注：macOS、Linux等其他系统可以询问AI或进行互联网检索 \nGit有什么用？\n你是否在AI辅助开发过程中出现不满意或者被AI误删除关键文件，想退回某一时刻？Git为解决这个问题而生(Git有更加复…",
       "image_url": "https://trae-forum-cdn.trae.com.cn/prod/optimized/2X/2/22ceffbb04aecc99dd2653832f7cba6e96ecce5f_2_1024x478.jpeg",
-      "views": 90,
+      "views": 91,
       "like_count": 4,
       "reply_count": 1,
       "posts_count": 3,
@@ -291,7 +291,7 @@
       "tags": [
         "AI知识科普"
       ],
-      "excerpt": "Hi，诸位伙伴，本篇文章纯手工完成，无任何AI参与，旨在以一位非开发专业将自身踩过的深坑和在网上求知将近10年的全部经验分享给各位，我可能不会涉及高深的专业名词、知识等内容，并且本篇文章也不会进行长篇大论的堆文字，都会以我自身经验浓缩再浓...",
+      "excerpt": "Hi，诸位伙伴，本篇文章纯手工完成，无任何AI参与，旨在以一位非开发专业将自身踩过的深坑和在网上求知将近10年的全部经验分享给各位，我可能不会涉及高深的专业名词、知识等内容，并且本篇文章也不会进行长篇大论的堆文字，都会以我自身经验浓缩再浓…",
       "image_url": "https://trae-forum-cdn.trae.com.cn/prod/optimized/3X/e/b/eb5d9d377fe82beab532b177bfd02ab03312a773_2_1024x696.png",
       "views": 135,
       "like_count": 6,
@@ -310,7 +310,7 @@
       "category_id": 7,
       "category_name": "帮助与支持",
       "tags": [],
-      "excerpt": "你的运行环境（版本号「点击帮助-关于-复制」）： \n\nTRAE 安卓APP端 \n\n问题描述（你遇到了什么问题？）： \n\n今日新上线的TRAE SOLO APP端登陆后，账号下的云端任务清单全部同步失败，我实验了在APP创建任务web就能同步...",
+      "excerpt": "你的运行环境（版本号「点击帮助-关于-复制」）： \n\nTRAE 安卓APP端 \n\n问题描述（你遇到了什么问题？）： \n\n今日新上线的TRAE SOLO APP端登陆后，账号下的云端任务清单全部同步失败，我实验了在APP创建任务web就能同步…",
       "image_url": "https://trae-forum-cdn.trae.com.cn/prod/optimized/3X/e/a/eabf76766e5e4727b0f7525d2bca7fcea9313805_2_460x1024.jpeg",
       "views": 24,
       "like_count": 2,
@@ -333,7 +333,7 @@
         "solo",
         "基础技巧"
       ],
-      "excerpt": "就在刚刚，SOLO独立端增加两大新功能，期待已久的语音讨论正式实装！还有类coze的模板任务功能正式上线！ \n语音讨论\n  \n \n先和AI讨论清楚明确需求之后再动工，一方面减少Token浪费，另一方面降低修改次数，一次成型！ \n \n体验下来...",
+      "excerpt": "就在刚刚，SOLO独立端增加两大新功能，期待已久的语音讨论正式实装！还有类coze的模板任务功能正式上线！ \n语音讨论\n  \n \n先和AI讨论清楚明确需求之后再动工，一方面减少Token浪费，另一方面降低修改次数，一次成型！ \n \n体验下来…",
       "image_url": "https://trae-forum-cdn.trae.com.cn/prod/optimized/3X/7/5/75ace4b56f80bcdb9c32f180342da821a3154b6a_2_1024x478.png",
       "views": 89,
       "like_count": 21,
@@ -352,7 +352,7 @@
       "category_id": 9,
       "category_name": "技巧分享",
       "tags": [],
-      "excerpt": "依旧老规矩，本文不涉及任何平台注册流程，注册环节请根据平台指引进行。 \n本次案例使用Minimax Music2.6模型 + 字节跳动汽水音乐平台进行演示，目前AI音乐制作模型多种多样，所以本文涉及模型并非最佳解！有兴趣的可以研究一下其他平...",
+      "excerpt": "依旧老规矩，本文不涉及任何平台注册流程，注册环节请根据平台指引进行。 \n本次案例使用Minimax Music2.6模型 + 字节跳动汽水音乐平台进行演示，目前AI音乐制作模型多种多样，所以本文涉及模型并非最佳解！有兴趣的可以研究一下其他平…",
       "image_url": "https://trae-forum-cdn.trae.com.cn/prod/optimized/3X/3/b/3b2a6ee14084a9cafe12b82e1444856aa5a6dd8d_2_1024x478.jpeg",
       "views": 90,
       "like_count": 3,
@@ -373,7 +373,7 @@
       "tags": [
         "AI知识科普"
       ],
-      "excerpt": "对于4月9日字节跳动发布的全球首个落地的全双工模型Seeduplex并没有引起TRAE友们热议，其主要原因是它和AI编程相关性并不大，另一个原因是“全双工是啥？”，目前字节跳动的Seeduplex已经内置豆包中，相信有部分人已经体验过了，有...",
+      "excerpt": "对于4月9日字节跳动发布的全球首个落地的全双工模型Seeduplex并没有引起TRAE友们热议，其主要原因是它和AI编程相关性并不大，另一个原因是“全双工是啥？”，目前字节跳动的Seeduplex已经内置豆包中，相信有部分人已经体验过了，有…",
       "image_url": "https://trae-forum-cdn.trae.com.cn/prod/optimized/3X/a/5/a5239cf49cd5f3895442b3fda9d462c4c4f6e058_2_1023x585.jpeg",
       "views": 72,
       "like_count": 1,
@@ -392,7 +392,7 @@
       "category_id": 9,
       "category_name": "技巧分享",
       "tags": [],
-      "excerpt": "将 TRAE 官方社区论坛整合为飞书应用 — 完整操作指南\n前置信息\n\n\n\n\n项目\n内容\n\n\n\n\nTRAE 官方中文社区地址\nhttps://forum.trae.cn/\n\n\n飞书开发者后台\n开发者后台 - 飞书开放平台\n\n\n实现方式\n飞书网...",
+      "excerpt": "将 TRAE 官方社区论坛整合为飞书应用 — 完整操作指南\n前置信息\n\n\n\n\n项目\n内容\n\n\n\n\nTRAE 官方中文社区地址\nhttps://forum.trae.cn/\n\n\n飞书开发者后台\n开发者后台 - 飞书开放平台\n\n\n实现方式\n飞书网…",
       "image_url": "",
       "views": 47,
       "like_count": 1,
@@ -414,7 +414,7 @@
         "solo",
         "基础技巧"
       ],
-      "excerpt": "目前SOLO已全量开放，无需邀请码\n途径一\n官网waitlist，官方会根据排队前后顺序发放资格 \nTRAE - The Real AI Engineer | TRAE - The Real AI Engineer \n  \n途径二\n官方SO...",
+      "excerpt": "目前SOLO已全量开放，无需邀请码\n途径一\n官网waitlist，官方会根据排队前后顺序发放资格 \nTRAE - The Real AI Engineer | TRAE - The Real AI Engineer \n  \n途径二\n官方SO…",
       "image_url": "https://trae-forum-cdn.trae.com.cn/prod/optimized/3X/3/3/33fd0e5e2ad7c6da27d0018094d86ab45bc91ca3_2_1024x478.jpeg",
       "views": 342,
       "like_count": 1,
@@ -456,9 +456,9 @@
         "基础技巧",
         "模型"
       ],
-      "excerpt": "前几天写了一篇 TRAE + Pencil丨(喂饭级教程)完全免费让AI加速UI/UX设计教学了在TRAE中如何借助Pencil插件调用TRAE内置大模型免费设计UI，昨天做了一个AI辅助的垃圾清理软件 三小时从零开始SOLO出一款Wind...",
+      "excerpt": "前几天写了一篇 TRAE + Pencil丨(喂饭级教程)完全免费让AI加速UI/UX设计教学了在TRAE中如何借助Pencil插件调用TRAE内置大模型免费设计UI，昨天做了一个AI辅助的垃圾清理软件 三小时从零开始SOLO出一款Wind…",
       "image_url": "https://trae-forum-cdn.trae.com.cn/prod/optimized/3X/3/0/30cbd2b5a356693608fe3ba76020e7353ad41895_2_1024x820.png",
-      "views": 232,
+      "views": 233,
       "like_count": 8,
       "reply_count": 1,
       "posts_count": 7,
@@ -517,7 +517,7 @@
         "基础技巧",
         "模型"
       ],
-      "excerpt": "项目地址： ChaseToDream/cleanai: 一款基于AI辅助的Windows桌面端垃圾文件清理软件 \n案例环境： \n\n软件：TRAE IDE国内版(v3.3.53)\n模型：GLM-5.1\n\n耗时WakaTime： \n  \n技术栈...",
+      "excerpt": "项目地址： ChaseToDream/cleanai: 一款基于AI辅助的Windows桌面端垃圾文件清理软件 \n案例环境： \n\n软件：TRAE IDE国内版(v3.3.53)\n模型：GLM-5.1\n\n耗时WakaTime： \n  \n技术栈…",
       "image_url": "https://trae-forum-cdn.trae.com.cn/prod/optimized/3X/d/a/da76a2bb96e1e08e50f9e82657a3d0ec366e0ab2_2_1024x484.png",
       "views": 121,
       "like_count": 5,
@@ -536,7 +536,7 @@
       "category_id": 7,
       "category_name": "帮助与支持",
       "tags": [],
-      "excerpt": "你的运行环境（版本号「点击帮助-关于-复制」）： \n\nTRAE CN \n版本: 3.3.53 \nVSCode 版本: 1.107.1 \n提交: 29284ef8d129bac665838dd911f3834a41b9bf37 \n日期: 20...",
+      "excerpt": "你的运行环境（版本号「点击帮助-关于-复制」）： \n\nTRAE CN \n版本: 3.3.53 \nVSCode 版本: 1.107.1 \n提交: 29284ef8d129bac665838dd911f3834a41b9bf37 \n日期: 20…",
       "image_url": "https://trae-forum-cdn.trae.com.cn/prod/optimized/3X/e/a/eaec14037adfd2085442ef83da7aca4c107a0885_2_1024x547.png",
       "views": 39,
       "like_count": 2,
@@ -559,9 +559,9 @@
         "模型",
         "精华神帖"
       ],
-      "excerpt": "TRAE IDE的.51版本灰度了自定义base url功能(国内版v3.3.51，国际版v3.5.51)，但是论坛和社群有很多人都出现了配置错误，在这里出一份简易教程，以国内版TRAE IDE为例 \n2026.05.09更新\n省流版(TR...",
+      "excerpt": "TRAE IDE的.51版本灰度了自定义base url功能(国内版v3.3.51，国际版v3.5.51)，但是论坛和社群有很多人都出现了配置错误，在这里出一份简易教程，以国内版TRAE IDE为例 \n2026.05.09更新\n省流版(TR…",
       "image_url": "https://trae-forum-cdn.trae.com.cn/prod/original/3X/1/6/16308501bfb96f183182a9c5253fe447735aa83e.png",
-      "views": 1378,
+      "views": 1379,
       "like_count": 40,
       "reply_count": 14,
       "posts_count": 29,
@@ -580,7 +580,7 @@
       "tags": [
         "基础技巧"
       ],
-      "excerpt": "安装Pencil插件\n首先打开TRAE扩展，搜索Pencil插件并安装 \n如果搜索不到，尝试搜索pen寻找，此bug已反馈 关于TRAE IDE插件搜索Pencil的bug问题 \n  \n安装成功后重启TRAE，启动Pencil插件 \n注册登...",
+      "excerpt": "安装Pencil插件\n首先打开TRAE扩展，搜索Pencil插件并安装 \n如果搜索不到，尝试搜索pen寻找，此bug已反馈 关于TRAE IDE插件搜索Pencil的bug问题 \n  \n安装成功后重启TRAE，启动Pencil插件 \n注册登…",
       "image_url": "https://trae-forum-cdn.trae.com.cn/prod/optimized/3X/f/3/f3daf8ed70eb8766f059f456ce5a67271c590045_2_1024x547.png",
       "views": 874,
       "like_count": 22,
@@ -599,7 +599,7 @@
       "category_id": 11,
       "category_name": "互动交流",
       "tags": [],
-      "excerpt": "官网地址： AI Ping \n工具用途\n可以快速横向比对各供应商(国内)API服务质量水平，帮助用户挑选优质大模型API服务 \n内容展示\n  \n \n \n使用说明书\n按照模型对比供应商\n\n点击官网首页探索模型 \n\n选择想要评测的模型，此处以G...",
+      "excerpt": "官网地址： AI Ping \n工具用途\n可以快速横向比对各供应商(国内)API服务质量水平，帮助用户挑选优质大模型API服务 \n内容展示\n  \n \n \n使用说明书\n按照模型对比供应商\n\n点击官网首页探索模型 \n\n选择想要评测的模型，此处以G…",
       "image_url": "https://trae-forum-cdn.trae.com.cn/prod/optimized/3X/d/f/dfa4bdb364a4c8cd45ce44a74a474da5e22596b2_2_1023x597.png",
       "views": 17,
       "like_count": 1,
@@ -621,7 +621,7 @@
         "Code-with-SOLO",
         "Hello-AI-科技致善"
       ],
-      "excerpt": "①摘要\n面向国内独居及子女不在身边的老年人与其子女，银龄通小程序提供极简天气查询、公交检索、一键紧急拨号及社区信息查看功能，子女可远程协助配置，让老年人仅需两步即可完成操作，大幅降低智能设备使用门槛。 \n②真实场景与需求\n\n目标人群：国内独...",
+      "excerpt": "①摘要\n面向国内独居及子女不在身边的老年人与其子女，银龄通小程序提供极简天气查询、公交检索、一键紧急拨号及社区信息查看功能，子女可远程协助配置，让老年人仅需两步即可完成操作，大幅降低智能设备使用门槛。 \n②真实场景与需求\n\n目标人群：国内独…",
       "image_url": "https://trae-forum-cdn.trae.com.cn/prod/original/3X/4/e/4e76f737bd999577516665bb37f64f0a5ece043c.png",
       "views": 39,
       "like_count": 0,
@@ -643,7 +643,7 @@
         "基础技巧",
         "模型"
       ],
-      "excerpt": "背景\n距离GLM-5.1正式发布已经过去了10天，官方之前宣称能够连续8小时的任务也一直没有去试验，一直扎在SOLO 3.0中研究，昨晚突然心血来潮想要重构我的导航站，它是一个开源项目但因为很早以前就被我截断关联，一直以来也没有进行改善，所...",
+      "excerpt": "背景\n距离GLM-5.1正式发布已经过去了10天，官方之前宣称能够连续8小时的任务也一直没有去试验，一直扎在SOLO 3.0中研究，昨晚突然心血来潮想要重构我的导航站，它是一个开源项目但因为很早以前就被我截断关联，一直以来也没有进行改善，所…",
       "image_url": "https://trae-forum-cdn.trae.com.cn/prod/optimized/3X/c/c/cca5d703c02b07f0f855b2780a20b54e9a9c1245_2_1024x263.png",
       "views": 265,
       "like_count": 0,
@@ -686,7 +686,7 @@
         "基础技巧",
         "精华神帖"
       ],
-      "excerpt": "最近在社群发现还有很多用户没有正确入手TRAE IDE软件，包括很多功能不知道如何使用，有何用等问题，所以在这里出一篇使用指南，我将会以用户视角列举日常使用过程中遇到的各种问题，快来看看你有没有不知道的点！ \n演示环境： \n\nTRAE ID...",
+      "excerpt": "最近在社群发现还有很多用户没有正确入手TRAE IDE软件，包括很多功能不知道如何使用，有何用等问题，所以在这里出一篇使用指南，我将会以用户视角列举日常使用过程中遇到的各种问题，快来看看你有没有不知道的点！ \n演示环境： \n\nTRAE ID…",
       "image_url": "https://trae-forum-cdn.trae.com.cn/prod/optimized/3X/0/3/03370b925dd4ddcbb94b70150b557eae9399ba75_2_1024x547.png",
       "views": 949,
       "like_count": 8,
@@ -707,7 +707,7 @@
       "tags": [
         "Code-with-SOLO"
       ],
-      "excerpt": "这个项目域名分配ok了，fun.xshan.top \n1.摘要：\n通过一句话需求，Code With SOLO全自动完成了一个纯前端的数学函数绘制网站，一键部署，支持绘制常见的函数图像(更多函数例如极坐标函数之类的需要二次开发)。 \n2.背...",
+      "excerpt": "这个项目域名分配ok了，fun.xshan.top \n1.摘要：\n通过一句话需求，Code With SOLO全自动完成了一个纯前端的数学函数绘制网站，一键部署，支持绘制常见的函数图像(更多函数例如极坐标函数之类的需要二次开发)。 \n2.背…",
       "image_url": "https://trae-forum-cdn.trae.com.cn/prod/optimized/3X/a/2/a26ff095582f1bf9bda330dc142656aecbe651d1_2_1024x478.png",
       "views": 44,
       "like_count": 0,
@@ -728,7 +728,7 @@
       "tags": [
         "AI知识科普"
       ],
-      "excerpt": "Token：AI阅读的\"基本单位\"\n\n你用ChatGPT聊天时，有没有注意到它有时候会\"数错\"字数？你说了一段100字的话，它却说你有150个Token。这是怎么回事？答案就在于AI处理文本的方式——它不按\"字\"来读，而是按Token来读。 ...",
+      "excerpt": "Token：AI阅读的\"基本单位\"\n\n你用ChatGPT聊天时，有没有注意到它有时候会\"数错\"字数？你说了一段100字的话，它却说你有150个Token。这是怎么回事？答案就在于AI处理文本的方式——它不按\"字\"来读，而是按Token来读。 …",
       "image_url": "",
       "views": 51,
       "like_count": 1,
@@ -749,7 +749,7 @@
       "tags": [
         "Code-with-SOLO"
       ],
-      "excerpt": "1.摘要：\nTRAE SOLO 3.0快速开发Minecraft Java版游戏联机工具，简洁清晰一键启动，支持CLI命令行+Windows桌面端双运行方式~ \n2.背景：\n作为一名游戏玩家，Minecraft目前市面上除游戏服务器方式外的...",
+      "excerpt": "1.摘要：\nTRAE SOLO 3.0快速开发Minecraft Java版游戏联机工具，简洁清晰一键启动，支持CLI命令行+Windows桌面端双运行方式~ \n2.背景：\n作为一名游戏玩家，Minecraft目前市面上除游戏服务器方式外的…",
       "image_url": "https://trae-forum-cdn.trae.com.cn/prod/optimized/2X/6/6a50fe48204413c46076c67189cabb1022747b13_2_1024x533.jpeg",
       "views": 47,
       "like_count": 3,
@@ -770,7 +770,7 @@
       "tags": [
         "More-than-Coding"
       ],
-      "excerpt": "1.摘要：\n利用SOLO的MTC模式，使用一句话+30min的饮茶时间，获得一份超专业的制造业精益生产调研报告，并且同步输出一份PPT \n2.背景：\n作为一名前制造业生产管理者，在以往的工作中免不了面对前沿的精益生产资讯的总结、归纳和输出，...",
+      "excerpt": "1.摘要：\n利用SOLO的MTC模式，使用一句话+30min的饮茶时间，获得一份超专业的制造业精益生产调研报告，并且同步输出一份PPT \n2.背景：\n作为一名前制造业生产管理者，在以往的工作中免不了面对前沿的精益生产资讯的总结、归纳和输出，…",
       "image_url": "https://trae-forum-cdn.trae.com.cn/prod/optimized/2X/6/6aa9f7fc1e0da903bd20c0f2f49d52e689ece515_2_1024x478.png",
       "views": 46,
       "like_count": 1,
@@ -810,7 +810,7 @@
       "tags": [
         "基础技巧"
       ],
-      "excerpt": "Hi，这里是极速入门系列的第二期，第一期是git版本管理 极速入门系列之Git篇丨手把手带小白学习Git版本管理 不再丢失代码！，今天来教你如何免费部署自己AI vibe coding出来的静态项目(具体什么是静态项目请自行搜索学习，这里不...",
+      "excerpt": "Hi，这里是极速入门系列的第二期，第一期是git版本管理 极速入门系列之Git篇丨手把手带小白学习Git版本管理 不再丢失代码！，今天来教你如何免费部署自己AI vibe coding出来的静态项目(具体什么是静态项目请自行搜索学习，这里不…",
       "image_url": "https://trae-forum-cdn.trae.com.cn/prod/original/2X/2/29ac6b458722d11efb017b6bce977cd5801b4b9e.png",
       "views": 224,
       "like_count": 4,
@@ -872,7 +872,7 @@
         "基础技巧",
         "精华神帖"
       ],
-      "excerpt": "Hi！欢迎来到我的极速入门系列第一篇——Git篇，在这篇文章中我将手把手从Git软件安装、使用等等操作，无需担心看不懂，学不会，在这里我不会教你Git工作原理、复杂功能也不会在这篇中介绍云端仓库管理(云端管理预计后面再说)，我只带纯小白入门...",
+      "excerpt": "Hi！欢迎来到我的极速入门系列第一篇——Git篇，在这篇文章中我将手把手从Git软件安装、使用等等操作，无需担心看不懂，学不会，在这里我不会教你Git工作原理、复杂功能也不会在这篇中介绍云端仓库管理(云端管理预计后面再说)，我只带纯小白入门…",
       "image_url": "https://trae-forum-cdn.trae.com.cn/prod/optimized/2X/2/22ceffbb04aecc99dd2653832f7cba6e96ecce5f_2_1024x478.jpeg",
       "views": 360,
       "like_count": 10,
@@ -912,7 +912,7 @@
       "tags": [
         "基础技巧"
       ],
-      "excerpt": "为了方便各位TRAE友快速定位使用过程中的报错问题，特此根据群组、社区等渠道的官方回复中整理了一份常见的TRAE错误码对照表(注意同一错误码可能包含不同含义，对照表只便于查询不代表100%对应！) \n\n\n\n\n第 1 列\n第 2 列\n第 3 ...",
+      "excerpt": "为了方便各位TRAE友快速定位使用过程中的报错问题，特此根据群组、社区等渠道的官方回复中整理了一份常见的TRAE错误码对照表(注意同一错误码可能包含不同含义，对照表只便于查询不代表100%对应！) \n\n\n\n\n第 1 列\n第 2 列\n第 3 …",
       "image_url": "",
       "views": 232,
       "like_count": 2,
@@ -955,7 +955,7 @@
       "tags": [
         "新SOLO初体验"
       ],
-      "excerpt": "在前一段时间我发了一篇使用TRAE IDE进行douban2notion的项目开发直播贴，虽然最后跑通了，但是最后因为豆瓣官方API接口的问题项目并不完美，如今新SOLO上线好几天了，AI浪潮让大量的人涌入了进来，但是短时间内很难消化工具与...",
+      "excerpt": "在前一段时间我发了一篇使用TRAE IDE进行douban2notion的项目开发直播贴，虽然最后跑通了，但是最后因为豆瓣官方API接口的问题项目并不完美，如今新SOLO上线好几天了，AI浪潮让大量的人涌入了进来，但是短时间内很难消化工具与…",
       "image_url": "https://trae-forum-cdn.trae.com.cn/prod/optimized/2X/8/83831ee1e722581f670af171ce8bd246f49c4743_2_1024x478.png",
       "views": 405,
       "like_count": 4,
@@ -978,7 +978,7 @@
         "solo",
         "基础技巧"
       ],
-      "excerpt": "昨天TRAE官方团队推出新SOLO，将AI综合性编程/办公的能力再度提升，整体体验效果极佳，昨日评测贴： 新SOLO的体验反馈丨人人均可开发的大跨步，同时也感谢官方给予这次内测和黄金码的体验的资格。 \n今天就以一个项目的角度来评测一下新SO...",
+      "excerpt": "昨天TRAE官方团队推出新SOLO，将AI综合性编程/办公的能力再度提升，整体体验效果极佳，昨日评测贴： 新SOLO的体验反馈丨人人均可开发的大跨步，同时也感谢官方给予这次内测和黄金码的体验的资格。 \n今天就以一个项目的角度来评测一下新SO…",
       "image_url": "https://trae-forum-cdn.trae.com.cn/prod/optimized/2X/b/b7c3a1077a95f245643263fef1363494e9cb7f3e_2_1024x477.png",
       "views": 301,
       "like_count": 10,
@@ -999,7 +999,7 @@
       "tags": [
         "solo"
       ],
-      "excerpt": "今天TRAE新SOLO上线后也是第一时间体验了，在此把我个人近2小时的快速体验结果分享一下，也提前说明一下我会保持客观理性的态度总结亮点，内测阶段肯定存在不足，但官方会不断优化修复，一切以最终全面上线为准！ \n测试环境\n\nSOLO 网页版(...",
+      "excerpt": "今天TRAE新SOLO上线后也是第一时间体验了，在此把我个人近2小时的快速体验结果分享一下，也提前说明一下我会保持客观理性的态度总结亮点，内测阶段肯定存在不足，但官方会不断优化修复，一切以最终全面上线为准！ \n测试环境\n\nSOLO 网页版(…",
       "image_url": "https://trae-forum-cdn.trae.com.cn/prod/optimized/2X/0/0ec3185473c049b95f27573e1a024cacc3250c3d_2_1024x478.png",
       "views": 102,
       "like_count": 3,
@@ -1040,7 +1040,7 @@
         "solo",
         "基础技巧"
       ],
-      "excerpt": "今天开一个“直播帖”，也是第一次记录一个项目从零开始开发的全过程，除平台账号注册、网页资料搜索等和开发过程核心相关性不大的步骤会省略外，整体开发过程将在本帖内“直播”，当然也有可能失败。 \n项目核心需求：开发一个可以连通豆瓣平台与Notio...",
+      "excerpt": "今天开一个“直播帖”，也是第一次记录一个项目从零开始开发的全过程，除平台账号注册、网页资料搜索等和开发过程核心相关性不大的步骤会省略外，整体开发过程将在本帖内“直播”，当然也有可能失败。 \n项目核心需求：开发一个可以连通豆瓣平台与Notio…",
       "image_url": "",
       "views": 84,
       "like_count": 17,
@@ -1059,7 +1059,7 @@
       "category_id": 11,
       "category_name": "互动交流",
       "tags": [],
-      "excerpt": "现在论坛的最新排序方式是根据帖子的最后活动时间定的，例如一个月以前创建的帖子刚刚有人回复的话，也会出现在最新排序的清单里，排序规则似乎是定成了最新活动 \n  \n那嘛我该如何对最新创建的帖子排序呐~ \n有没有办法，还是目前只有等待有新帖时出现...",
+      "excerpt": "现在论坛的最新排序方式是根据帖子的最后活动时间定的，例如一个月以前创建的帖子刚刚有人回复的话，也会出现在最新排序的清单里，排序规则似乎是定成了最新活动 \n  \n那嘛我该如何对最新创建的帖子排序呐~ \n有没有办法，还是目前只有等待有新帖时出现…",
       "image_url": "https://trae-forum-cdn.trae.com.cn/prod/optimized/2X/5/55cd103a808d0a92631101bce099a30c96028e2a_2_1024x478.png",
       "views": 28,
       "like_count": 14,
@@ -1080,7 +1080,7 @@
       "tags": [
         "AI知识科普"
       ],
-      "excerpt": "Hi，这里是AI领域知识补全百科计划，主要是因为最近在回补AI领域相关的知识点，在此也分享给大家~ \n本栏目将以AI的不同领域进行分类分篇，下一篇什么时候更新随心情~ :zany_face: \n注意：本文中涉及的知识内容旨在用通俗的语言解释...",
+      "excerpt": "Hi，这里是AI领域知识补全百科计划，主要是因为最近在回补AI领域相关的知识点，在此也分享给大家~ \n本栏目将以AI的不同领域进行分类分篇，下一篇什么时候更新随心情~ :zany_face: \n注意：本文中涉及的知识内容旨在用通俗的语言解释…",
       "image_url": "https://trae-forum-cdn.trae.com.cn/prod/optimized/2X/6/6adb3ef115e26ef362c65e73964208c1799444c1_2_1024x575.jpeg",
       "views": 56,
       "like_count": 6,
@@ -1099,7 +1099,7 @@
       "category_id": 7,
       "category_name": "帮助与支持",
       "tags": [],
-      "excerpt": "你的运行环境（版本号「点击帮助-关于-复制」）： \n\n3.3.38 \n\n问题描述（你遇到了什么问题？）： \n\n目前Beta测试功能：历史对话的文本描述与实际使用存在差异 \n\n报错信息或截图（如有）： \n软件内文本描述是 #历史对话 引用以往...",
+      "excerpt": "你的运行环境（版本号「点击帮助-关于-复制」）： \n\n3.3.38 \n\n问题描述（你遇到了什么问题？）： \n\n目前Beta测试功能：历史对话的文本描述与实际使用存在差异 \n\n报错信息或截图（如有）： \n软件内文本描述是 #历史对话 引用以往…",
       "image_url": "https://trae-forum-cdn.trae.com.cn/prod/optimized/2X/b/b5f576793fd4e92d34fcbe4051794b1ee9f6d2b6_2_1023x625.png",
       "views": 42,
       "like_count": 14,
@@ -1118,7 +1118,7 @@
       "category_id": 11,
       "category_name": "互动交流",
       "tags": [],
-      "excerpt": "今天打算搞一个vscode插件，代码方面还没启动，卡在开发者注册了，注册页面填写完信息后点击注册无任何反应，更换网络、无痕模式等方法都没有效果。 \n有没有人成功创建过，是我的网络问题么？ \n网址： Create Publisher | Vi...",
+      "excerpt": "今天打算搞一个vscode插件，代码方面还没启动，卡在开发者注册了，注册页面填写完信息后点击注册无任何反应，更换网络、无痕模式等方法都没有效果。 \n有没有人成功创建过，是我的网络问题么？ \n网址： Create Publisher | Vi…",
       "image_url": "https://trae-forum-cdn.trae.com.cn/prod/optimized/2X/d/d4af22c291a4e45a79bcdd38bca49d340d2d78c0_2_1024x478.png",
       "views": 27,
       "like_count": 1,
@@ -1139,7 +1139,7 @@
       "tags": [
         "自定义智能体"
       ],
-      "excerpt": "在以前写一个项目Readme文档可以说要了半条命，既要简洁清晰的向用户介绍清楚项目/工具怎么用，也要保持文档的易读性和美观，在过年前为了彻底解决这个问题，我以智能体为载体创建并不断优化这个名为“文档智匠”的智能体，如今它可以通过读取项目代码...",
+      "excerpt": "在以前写一个项目Readme文档可以说要了半条命，既要简洁清晰的向用户介绍清楚项目/工具怎么用，也要保持文档的易读性和美观，在过年前为了彻底解决这个问题，我以智能体为载体创建并不断优化这个名为“文档智匠”的智能体，如今它可以通过读取项目代码…",
       "image_url": "https://trae-forum-cdn.trae.com.cn/prod/optimized/2X/8/8d35fe103a41e64e42cd1ba0eda1c2960aac90f2_2_1024x478.png",
       "views": 338,
       "like_count": 6,
@@ -1158,7 +1158,7 @@
       "category_id": 10,
       "category_name": "案例与作品",
       "tags": [],
-      "excerpt": "今天翻Github时想起了之前做的表情包裁剪网站项目，虽然结构简单，但是很好的解决了当时我的需求，所以在这里分享给大家，当时用的模型应该是GLM-4.7，具体实现的对话早已丢失~ \n项目需求：用于一键裁剪板式表情包图片，并快速命名便于提交相...",
+      "excerpt": "今天翻Github时想起了之前做的表情包裁剪网站项目，虽然结构简单，但是很好的解决了当时我的需求，所以在这里分享给大家，当时用的模型应该是GLM-4.7，具体实现的对话早已丢失~ \n项目需求：用于一键裁剪板式表情包图片，并快速命名便于提交相…",
       "image_url": "https://trae-forum-cdn.trae.com.cn/prod/optimized/2X/f/ffb050c5ad975f95660829411e97df45b34796f8_2_1024x686.jpeg",
       "views": 110,
       "like_count": 10,
@@ -1179,7 +1179,7 @@
       "tags": [
         "trae的n种用法"
       ],
-      "excerpt": "▶ \n个人简单介绍(无关教程 可以略过)\n注：本教程旨在用TRAE快速搭建ComfyUI工作流，不涉及ComfyUI软件的使用教程，对此可以自行搜索学习！ \n软件/工具清单\n\nTRAE v3.3.38(国内版)\nComfyUI v0.13.0(...",
+      "excerpt": "▶ \n个人简单介绍(无关教程 可以略过)\n注：本教程旨在用TRAE快速搭建ComfyUI工作流，不涉及ComfyUI软件的使用教程，对此可以自行搜索学习！ \n软件/工具清单\n\nTRAE v3.3.38(国内版)\nComfyUI v0.13.0(…",
       "image_url": "https://trae-forum-cdn.trae.com.cn/prod/optimized/2X/6/6cd8fce2c32fc27f0bafe48d4c46f7b7ba5c7bdd_2_1024x547.png",
       "views": 265,
       "like_count": 24,
@@ -1200,9 +1200,9 @@
       "tags": [
         "trae的n种用法"
       ],
-      "excerpt": "▶ \n个人简单介绍(无关教程 可以略过)\n软件/工具清单\n\nTRAE v3.3.38(国内版)\nBlender 4.5.7-LTS\n\n原理简介\n利用TRAE内置的Blender MCP服务与Blender软件进行链接，使用TRAE内大模型服务进...",
+      "excerpt": "▶ \n个人简单介绍(无关教程 可以略过)\n软件/工具清单\n\nTRAE v3.3.38(国内版)\nBlender 4.5.7-LTS\n\n原理简介\n利用TRAE内置的Blender MCP服务与Blender软件进行链接，使用TRAE内大模型服务进…",
       "image_url": "https://trae-forum-cdn.trae.com.cn/prod/optimized/2X/1/13ce129e8adec6ed14a4e639b19c5e2131fbc28d_2_1024x478.png",
-      "views": 526,
+      "views": 527,
       "like_count": 12,
       "reply_count": 1,
       "posts_count": 7,
@@ -1221,7 +1221,7 @@
       "tags": [
         "openclaw"
       ],
-      "excerpt": "Openclaw已经算是火了一段时间，最近几天国内开始躁动起来，包括昨天企鹅公司前面排队安装Openclaw，但我想说的是龙虾火起来肯定有优秀的地方，但是并不是每一个人都要必备一个，现在铺天盖地的Openclaw安装教程，公众号、各大媒体都...",
+      "excerpt": "Openclaw已经算是火了一段时间，最近几天国内开始躁动起来，包括昨天企鹅公司前面排队安装Openclaw，但我想说的是龙虾火起来肯定有优秀的地方，但是并不是每一个人都要必备一个，现在铺天盖地的Openclaw安装教程，公众号、各大媒体都…",
       "image_url": "https://trae-forum-cdn.trae.com.cn/prod/optimized/2X/4/4c483d0a0e4a9ac5f7d28b47ed757a778c9e1ae8_2_1024x478.jpeg",
       "views": 251,
       "like_count": 3,
@@ -1234,7 +1234,7 @@
     }
   ],
   "_quality": {
-    "raw_fetched": 65,
+    "raw_fetched": 6,
     "valid_posts": 59,
     "total_posts": 59,
     "issues": {

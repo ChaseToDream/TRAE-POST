@@ -8,9 +8,15 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: update-posts
+  cancel-in-progress: false
+
 jobs:
   update:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
+
     steps:
       - uses: actions/checkout@v4
 
@@ -27,25 +33,29 @@ jobs:
         id: fetch
         env:
           FORUM_USERNAME: ${{ secrets.FORUM_USERNAME }}
-        run: python scripts/fetch_posts.py
+        run: |
+          python scripts/fetch_posts.py 2>&1 | tee fetch.log
+          echo "exit_code=${PIPESTATUS[0]}" >> $GITHUB_OUTPUT
 
       - name: Verify output
         id: verify
+        if: steps.fetch.outputs.exit_code == '0'
         run: |
           if [ ! -f data/posts.json ]; then
-            echo "错误: posts.json 未生成" >&2
+            echo "::error::posts.json 未生成"
             exit 1
           fi
           total=$(python -c "import json; d=json.load(open('data/posts.json','r',encoding='utf-8')); print(d.get('total_posts',-1))")
           if [ "$total" -lt 0 ]; then
-            echo "错误: posts.json 数据无效" >&2
+            echo "::error::posts.json 数据无效"
             exit 1
           fi
           echo "total_posts=$total" >> $GITHUB_OUTPUT
-          echo "输出验证通过: $total 条帖子"
+          echo "✅ 验证通过: $total 条帖子"
 
       - name: Check for changes
         id: check_changes
+        if: steps.verify.outputs.total_posts
         run: |
           git diff --exit-code data/posts.json || echo "changed=true" >> $GITHUB_OUTPUT
 
@@ -55,5 +65,19 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add data/posts.json
-          git commit -m "chore: update forum posts $(date +%Y-%m-%d)"
+          git commit -m "chore: update forum posts $(date +%Y-%m-%d) [${{ steps.verify.outputs.total_posts }} posts]"
           git push
+
+      - name: Upload logs on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: fetch-logs
+          path: |
+            fetch.log
+            logs/
+          retention-days: 7
+
+      - name: Cleanup
+        if: always()
+        run: rm -f fetch.log
