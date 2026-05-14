@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-05-14T06:44:12Z",
+  "updated_at": "2026-05-14T10:12:41Z",
   "user": {
     "id": 903,
     "username": "JasonShane",
@@ -10,18 +10,39 @@
     "trust_level": 2,
     "created_at": "2026-03-03T02:28:29.304Z"
   },
-  "total_posts": 61,
+  "total_posts": 62,
   "excluded_posts": 7,
   "categories": {
+    "AI充电站": 5,
     "SOLO技能创作赛": 2,
     "帮助与支持": 9,
     "技巧分享": 15,
     "互动交流": 20,
-    "AI充电站": 4,
     "案例与作品": 7,
     "SOLO挑战赛专区": 4
   },
   "posts": [
+    {
+      "id": 17693,
+      "title": "DeepSeek 缓存命中技术详解：让 AI 推理快 26 倍、便宜 50 倍的秘密",
+      "created_at": "2026-05-14T10:06:43.000Z",
+      "last_posted_at": "2026-05-14T10:06:43.073Z",
+      "category_id": 36,
+      "category_name": "AI充电站",
+      "tags": [
+        "AI知识科普"
+      ],
+      "excerpt": "最近TRAE越来越多的用户开始自定义api接入Deepseek-V4-Pro/Flash，而Deepseek的高性价比为大家带来很优质的服务，我相信有很多用户关注到了缓存命中这个机制，核心原因就是对于命中&未命中的的价格差异还是很大的(虽然…",
+      "image_url": "https://trae-forum-cdn.trae.com.cn/prod/optimized/3X/6/1/619f9282b944a1e35d9495aba17d7fc1be692c69_2_939x1024.png",
+      "views": 9,
+      "like_count": 2,
+      "reply_count": 0,
+      "posts_count": 1,
+      "url": "https://forum.trae.cn/t/topic/17693",
+      "pinned": false,
+      "closed": false,
+      "archived": false
+    },
     {
       "id": 17173,
       "title": "【Skill 创作】我做了一个蒸馏TRAE社区用户的Skill",
@@ -1277,9 +1298,9 @@
     }
   ],
   "_quality": {
-    "raw_fetched": 7,
-    "valid_posts": 61,
-    "total_posts": 61,
+    "raw_fetched": 8,
+    "valid_posts": 62,
+    "total_posts": 62,
     "issues": {
       "missing_title": 0,
       "missing_date": 0,
