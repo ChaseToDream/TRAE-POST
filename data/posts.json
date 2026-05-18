@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-05-18T11:52:10Z",
+  "updated_at": "2026-05-18T15:25:54Z",
   "user": {
     "id": 903,
     "username": "JasonShane",
@@ -10,11 +10,11 @@
     "trust_level": 2,
     "created_at": "2026-03-03T02:28:29.304Z"
   },
-  "total_posts": 64,
+  "total_posts": 65,
   "excluded_posts": 7,
   "categories": {
+    "SOLO技能创作赛": 4,
     "帮助与支持": 10,
-    "SOLO技能创作赛": 3,
     "AI充电站": 5,
     "技巧分享": 15,
     "互动交流": 20,
@@ -22,6 +22,27 @@
     "SOLO挑战赛专区": 4
   },
   "posts": [
+    {
+      "id": 18240,
+      "title": "【Skill 创作】我做了一个翻译互联网缩写的Skill——说人话",
+      "created_at": "2026-05-18T11:58:08.641Z",
+      "last_posted_at": "2026-05-18T11:58:08.724Z",
+      "category_id": 37,
+      "category_name": "SOLO技能创作赛",
+      "tags": [
+        "Skill创作"
+      ],
+      "excerpt": "1、Skill简介 ： \ninternet-slang-decoder(说人话)Skill能够帮助你解读互联网上的那些神奇缩写，让你知道他们到底说的是什么？ \n2、使用场景 ： \n你是不是很多时候都看不懂对方的缩写是什么意思？yyds到底是有…",
+      "image_url": "https://trae-forum-cdn.trae.com.cn/prod/optimized/3X/9/1/919f4f7e654b823360a5c8a5e8e3c83196b77ed2_2_1024x820.png",
+      "views": 6,
+      "like_count": 0,
+      "reply_count": 0,
+      "posts_count": 1,
+      "url": "https://forum.trae.cn/t/topic/18240",
+      "pinned": false,
+      "closed": false,
+      "archived": false
+    },
     {
       "id": 18214,
       "title": "SOLO桌面端本地模式任务文件管理内容显示异常",
@@ -1339,8 +1360,8 @@
   ],
   "_quality": {
     "raw_fetched": 8,
-    "valid_posts": 64,
-    "total_posts": 64,
+    "valid_posts": 65,
+    "total_posts": 65,
     "issues": {
       "missing_title": 0,
       "missing_date": 0,
