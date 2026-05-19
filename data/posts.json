@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-05-19T07:43:00Z",
+  "updated_at": "2026-05-19T11:15:05Z",
   "user": {
     "id": 903,
     "username": "JasonShane",
@@ -10,10 +10,10 @@
     "trust_level": 2,
     "created_at": "2026-03-03T02:28:29.304Z"
   },
-  "total_posts": 65,
+  "total_posts": 66,
   "excluded_posts": 7,
   "categories": {
-    "SOLO技能创作赛": 4,
+    "SOLO技能创作赛": 5,
     "帮助与支持": 10,
     "AI充电站": 5,
     "技巧分享": 15,
@@ -22,6 +22,27 @@
     "SOLO挑战赛专区": 4
   },
   "posts": [
+    {
+      "id": 18421,
+      "title": "【Skill 创作】帮你一键生成符合官方标准的 Skill 参赛帖子的 Skill",
+      "created_at": "2026-05-19T09:58:13.907Z",
+      "last_posted_at": "2026-05-19T10:08:01.955Z",
+      "category_id": 37,
+      "category_name": "SOLO技能创作赛",
+      "tags": [
+        "Skill创作"
+      ],
+      "excerpt": "1、Skill简介\n这是一个帮你快速撰写 SOLO 技能创作赛标准参赛帖子的 Skill。只需要提供 Skill 的基本信息，就能自动生成包含官方要求的 7 个部分的完整帖子，适合想参赛但不知道怎么写帖子的小伙伴使用。 \n\n2、使用场景\n说…",
+      "image_url": "https://trae-forum-cdn.trae.com.cn/prod/optimized/3X/4/1/41b1fc1a12a53e34f165f31e498d581b8c41a071_2_1024x547.png",
+      "views": 14,
+      "like_count": 0,
+      "reply_count": 0,
+      "posts_count": 2,
+      "url": "https://forum.trae.cn/t/topic/18421",
+      "pinned": false,
+      "closed": false,
+      "archived": false
+    },
     {
       "id": 18240,
       "title": "【Skill 创作】我做了一个翻译互联网缩写的Skill——说人话",
@@ -1359,9 +1380,9 @@
     }
   ],
   "_quality": {
-    "raw_fetched": 7,
-    "valid_posts": 65,
-    "total_posts": 65,
+    "raw_fetched": 8,
+    "valid_posts": 66,
+    "total_posts": 66,
     "issues": {
       "missing_title": 0,
       "missing_date": 0,
