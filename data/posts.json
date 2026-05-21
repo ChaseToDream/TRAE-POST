@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-05-21T03:25:18Z",
+  "updated_at": "2026-05-21T07:47:32Z",
   "user": {
     "id": 903,
     "username": "JasonShane",
@@ -10,10 +10,10 @@
     "trust_level": 2,
     "created_at": "2026-03-03T02:28:29.304Z"
   },
-  "total_posts": 66,
+  "total_posts": 67,
   "excluded_posts": 7,
   "categories": {
-    "SOLO技能创作赛": 5,
+    "SOLO技能创作赛": 6,
     "帮助与支持": 10,
     "AI充电站": 5,
     "技巧分享": 15,
@@ -22,6 +22,27 @@
     "SOLO挑战赛专区": 4
   },
   "posts": [
+    {
+      "id": 18753,
+      "title": "【Skill 创作】一句话描述你的心情，AI 帮你找到最配的那首古诗词",
+      "created_at": "2026-05-21T05:51:29.682Z",
+      "last_posted_at": "2026-05-21T05:51:29.812Z",
+      "category_id": 37,
+      "category_name": "SOLO技能创作赛",
+      "tags": [
+        "Skill创作"
+      ],
+      "excerpt": "1、Skill 简介\n这是一个叫 poetry-match 的 Skill，能根据你描述的心情、场景或感受，智能匹配最契合的真实古诗词，同时输出作者、朝代、体裁、匹配理由和适用场景等完整信息。 \n适合喜欢古诗词、想用诗意表达情绪、或者写文案…",
+      "image_url": "https://trae-forum-cdn.trae.com.cn/prod/optimized/3X/c/3/c3d40c997b3cd920d53510a1ca1d7232049a9997_2_1024x547.png",
+      "views": 7,
+      "like_count": 0,
+      "reply_count": 0,
+      "posts_count": 1,
+      "url": "https://forum.trae.cn/t/topic/18753",
+      "pinned": false,
+      "closed": false,
+      "archived": false
+    },
     {
       "id": 18421,
       "title": "【Skill 创作】帮你一键生成符合官方标准的 Skill 参赛帖子的 Skill",
@@ -1380,9 +1401,9 @@
     }
   ],
   "_quality": {
-    "raw_fetched": 7,
-    "valid_posts": 66,
-    "total_posts": 66,
+    "raw_fetched": 8,
+    "valid_posts": 67,
+    "total_posts": 67,
     "issues": {
       "missing_title": 0,
       "missing_date": 0,
