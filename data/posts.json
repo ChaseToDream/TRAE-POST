@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-05-22T14:33:52Z",
+  "updated_at": "2026-05-22T17:49:15Z",
   "user": {
     "id": 903,
     "username": "JasonShane",
@@ -1464,7 +1464,7 @@
     }
   ],
   "_quality": {
-    "raw_fetched": 9,
+    "raw_fetched": 8,
     "valid_posts": 70,
     "total_posts": 70,
     "issues": {
