@@ -1,6 +1,6 @@
 <div align="center">
 
-# TRAE Forum Posts
+# TRAE-POST
 
 **自动展示个人在 [TRAE 官方中文社区](https://forum.trae.cn/) 的帖子**
 
