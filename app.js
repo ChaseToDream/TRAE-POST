@@ -878,6 +878,8 @@
         updateCatTabs();
         renderPosts();
 
+        document.getElementById('toolbar').style.display = '';
+
         setTimeout(function() { content.style.opacity = '1'; }, 50);
       })
       .catch(function(e) {

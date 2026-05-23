@@ -714,7 +714,8 @@ footer a:hover { text-decoration: underline; }
   .cat-columns { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
   .flat-grid { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
   .header-stats { gap: 16px; }
-  .toolbar-actions { display: none; }
+  .toolbar-actions { display: flex; }
+  .sort-select { display: none; }
   .stats-charts { grid-template-columns: 1fr; }
   .cal-day { min-height: 48px; }
   .cal-day-num { font-size: 0.72rem; }
