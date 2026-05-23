@@ -394,6 +394,71 @@ def process_and_filter_topics(
     return filtered, excluded_count
 
 # ──────────────────────────────────────────────
+# 帖子详情刷新
+# ──────────────────────────────────────────────
+async def fetch_topic_details(client: ForumClient, topic_id: int) -> Optional[dict]:
+    data = await client.fetch_json(f"{FORUM_BASE}/t/{topic_id}.json")
+    if not data:
+        return None
+    return {
+        "id": data.get("id", topic_id),
+        "title": data.get("title", ""),
+        "views": data.get("views", 0),
+        "like_count": data.get("like_count", 0),
+        "reply_count": data.get("reply_count", 0),
+        "posts_count": data.get("posts_count", 0),
+        "last_posted_at": data.get("last_posted_at", ""),
+        "excerpt": data.get("excerpt", ""),
+        "pinned": data.get("pinned", False),
+        "closed": data.get("closed", False),
+        "archived": data.get("archived", False),
+    }
+
+async def refresh_existing_posts(client: ForumClient, existing_ids: set[int]) -> dict[int, dict]:
+    if not existing_ids:
+        return {}
+    log.info("开始刷新 %d 条已有帖子的详情...", len(existing_ids))
+    tasks = [fetch_topic_details(client, tid) for tid in existing_ids]
+    results: dict[int, dict] = {}
+    with tqdm(total=len(tasks), desc="刷新帖子详情") as pbar:
+        for coro in asyncio.as_completed(tasks):
+            detail = await coro
+            if detail and detail.get("id"):
+                results[detail["id"]] = detail
+            pbar.update(1)
+    log.info("成功刷新 %d/%d 条帖子详情", len(results), len(existing_ids))
+    return results
+
+def apply_refresh_data(posts: list[PostItem], refresh_data: dict[int, dict]) -> list[PostItem]:
+    if not refresh_data:
+        return posts
+    post_map = {p.id: p for p in posts}
+    for pid, detail in refresh_data.items():
+        if pid in post_map:
+            p = post_map[pid]
+            if detail.get("title"):
+                p.title = detail["title"]
+            if detail.get("views") is not None:
+                p.views = detail["views"]
+            if detail.get("like_count") is not None:
+                p.like_count = detail["like_count"]
+            if detail.get("reply_count") is not None:
+                p.reply_count = detail["reply_count"]
+            if detail.get("posts_count") is not None:
+                p.posts_count = detail["posts_count"]
+            if detail.get("last_posted_at"):
+                p.last_posted_at = detail["last_posted_at"]
+            if detail.get("excerpt"):
+                p.excerpt = detail["excerpt"]
+            if detail.get("pinned") is not None:
+                p.pinned = detail["pinned"]
+            if detail.get("closed") is not None:
+                p.closed = detail["closed"]
+            if detail.get("archived") is not None:
+                p.archived = detail["archived"]
+    return posts
+
+# ──────────────────────────────────────────────
 # 增量更新
 # ──────────────────────────────────────────────
 def load_existing_data() -> tuple[dict, set[int]]:
@@ -522,7 +587,7 @@ async def main():
         client = ForumClient(session)
 
         # 3. 获取分类列表
-        log.info("[1/4] 获取论坛分类列表...")
+        log.info("[1/5] 获取论坛分类列表...")
         cat_map, sub_cat_map = await fetch_category_map(client)
         if not cat_map:
             log.error("无法获取分类列表，论坛可能不可用")
@@ -533,7 +598,7 @@ async def main():
         log.info("已排除分类: %s", ", ".join(excluded_names) if excluded_names else "无")
 
         # 4. 获取用户信息
-        log.info("[2/4] 获取用户信息...")
+        log.info("[2/5] 获取用户信息...")
         profile = await fetch_user_profile(client, username)
         if not profile:
             profile = UserProfile(username=username)
@@ -541,13 +606,13 @@ async def main():
         else:
             log.info("用户: %s (ID: %s)", profile.username, profile.id)
 
-        # 5. 获取帖子（增量）
-        log.info("[3/4] 获取用户帖子...")
-        raw_topics = await fetch_user_topics(client, username, existing_ids)
-        log.info("共获取 %d 条新帖子", len(raw_topics))
+        # 5. 获取帖子（全量抓取，确保标题和统计数据同步）
+        log.info("[3/5] 获取用户帖子...")
+        raw_topics = await fetch_user_topics(client, username)
+        log.info("共获取 %d 条帖子", len(raw_topics))
 
         # 6. 处理和合并
-        log.info("[4/4] 处理和筛选帖子...")
+        log.info("[4/5] 处理和筛选帖子...")
         new_filtered, excluded_count = process_and_filter_topics(
             raw_topics, cat_map, sub_cat_map, excluded_ids
         )
@@ -559,14 +624,22 @@ async def main():
         else:
             all_filtered = new_filtered
 
-        # 7. 构建输出
+        # 7. 刷新已有帖子详情（同步标题、浏览量等可变字段）
+        if existing_ids:
+            log.info("[5/5] 刷新已有帖子详情...")
+            refresh_data = await refresh_existing_posts(client, existing_ids)
+            all_filtered = apply_refresh_data(all_filtered, refresh_data)
+        else:
+            log.info("[5/5] 无已有帖子，跳过详情刷新")
+
+        # 8. 构建输出
         output = build_output_data(
             profile, all_filtered, excluded_count,
             len(raw_topics), excluded_names
         )
         output_path = save_output_file(output)
 
-        # 8. 打印摘要
+        # 9. 打印摘要
         log.info("=== 完成 ===")
         log.info("有效帖子: %d", len(all_filtered))
         log.info("已排除: %d (%s)", excluded_count, ", ".join(excluded_names) if excluded_names else "无")

@@ -24,6 +24,9 @@
       <div class="header-stat"><div class="header-stat-num" id="stat-cats">0</div><div class="header-stat-label">分类</div></div>
     </div>
     <div class="header-actions">
+      <button class="refresh-btn" id="refresh-btn" title="刷新数据 (R)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+      </button>
       <button class="theme-toggle" id="theme-toggle" title="切换主题 (D)">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
       </button>
@@ -188,7 +191,7 @@
 </main>
 
 <footer>
-  <p>数据来源于 <a href="https://forum.trae.cn/" target="_blank" rel="noopener">TRAE 官方中文社区</a> · 每日自动更新</p>
+  <p>数据来源于 <a href="https://forum.trae.cn/" target="_blank" rel="noopener">TRAE 官方中文社区</a> · 每2小时自动更新</p>
   <p style="margin-top:3px" id="update-time"></p>
 </footer>
 
@@ -201,6 +204,7 @@
   <span class="shortcut-key"><kbd>1</kbd><kbd>2</kbd><kbd>3</kbd> 视图</span>
   <span class="shortcut-key"><kbd>D</kbd> 主题</span>
   <span class="shortcut-key"><kbd>S</kbd> 统计</span>
+  <span class="shortcut-key"><kbd>R</kbd> 刷新</span>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
