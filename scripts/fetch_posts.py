@@ -2,7 +2,8 @@
 
 从 TRAE 官方中文社区抓取用户帖子，支持：
 - 异步并发抓取，大幅提升速度
-- 增量更新，只抓取新帖子
+- 全量同步，每次强制获取所有帖子最新数据
+- 帖子详情刷新，确保标题、浏览量等字段实时同步
 - 结构化日志输出
 - Pydantic 数据校验
 - 进度条显示
@@ -409,16 +410,19 @@ async def fetch_topic_details(client: ForumClient, topic_id: int) -> Optional[di
         "posts_count": data.get("posts_count", 0),
         "last_posted_at": data.get("last_posted_at", ""),
         "excerpt": data.get("excerpt", ""),
+        "category_id": data.get("category_id", 0),
+        "image_url": data.get("image_url", ""),
+        "tags": data.get("tags", []),
         "pinned": data.get("pinned", False),
         "closed": data.get("closed", False),
         "archived": data.get("archived", False),
     }
 
-async def refresh_existing_posts(client: ForumClient, existing_ids: set[int]) -> dict[int, dict]:
-    if not existing_ids:
+async def refresh_all_posts(client: ForumClient, post_ids: set[int]) -> dict[int, dict]:
+    if not post_ids:
         return {}
-    log.info("开始刷新 %d 条已有帖子的详情...", len(existing_ids))
-    tasks = [fetch_topic_details(client, tid) for tid in existing_ids]
+    log.info("开始刷新 %d 条帖子的详情（强制获取最新数据）...", len(post_ids))
+    tasks = [fetch_topic_details(client, tid) for tid in post_ids]
     results: dict[int, dict] = {}
     with tqdm(total=len(tasks), desc="刷新帖子详情") as pbar:
         for coro in asyncio.as_completed(tasks):
@@ -426,10 +430,10 @@ async def refresh_existing_posts(client: ForumClient, existing_ids: set[int]) ->
             if detail and detail.get("id"):
                 results[detail["id"]] = detail
             pbar.update(1)
-    log.info("成功刷新 %d/%d 条帖子详情", len(results), len(existing_ids))
+    log.info("成功刷新 %d/%d 条帖子详情", len(results), len(post_ids))
     return results
 
-def apply_refresh_data(posts: list[PostItem], refresh_data: dict[int, dict]) -> list[PostItem]:
+def apply_refresh_data(posts: list[PostItem], refresh_data: dict[int, dict], cat_map: dict = None, sub_cat_map: dict = None) -> list[PostItem]:
     if not refresh_data:
         return posts
     post_map = {p.id: p for p in posts}
@@ -450,6 +454,23 @@ def apply_refresh_data(posts: list[PostItem], refresh_data: dict[int, dict]) -> 
                 p.last_posted_at = detail["last_posted_at"]
             if detail.get("excerpt"):
                 p.excerpt = detail["excerpt"]
+            if detail.get("image_url"):
+                p.image_url = resolve_image_url(detail["image_url"])
+            if detail.get("category_id") and cat_map is not None and sub_cat_map is not None:
+                resolved_id, cat_name = resolve_category_id(detail["category_id"], cat_map, sub_cat_map)
+                p.category_id = resolved_id
+                p.category_name = cat_name
+            if detail.get("tags") and isinstance(detail["tags"], list):
+                tags = []
+                for t in detail["tags"]:
+                    if isinstance(t, dict):
+                        tag_name = t.get("name", "")
+                        if tag_name:
+                            tags.append(tag_name)
+                    elif isinstance(t, str) and t:
+                        tags.append(t)
+                if tags:
+                    p.tags = tags
             if detail.get("pinned") is not None:
                 p.pinned = detail["pinned"]
             if detail.get("closed") is not None:
@@ -624,13 +645,14 @@ async def main():
         else:
             all_filtered = new_filtered
 
-        # 7. 刷新已有帖子详情（同步标题、浏览量等可变字段）
-        if existing_ids:
-            log.info("[5/5] 刷新已有帖子详情...")
-            refresh_data = await refresh_existing_posts(client, existing_ids)
-            all_filtered = apply_refresh_data(all_filtered, refresh_data)
+        # 7. 强制刷新所有帖子详情（确保标题、浏览量等数据为最新）
+        all_post_ids = {p.id for p in all_filtered}
+        if all_post_ids:
+            log.info("[5/5] 强制刷新所有帖子详情...")
+            refresh_data = await refresh_all_posts(client, all_post_ids)
+            all_filtered = apply_refresh_data(all_filtered, refresh_data, cat_map, sub_cat_map)
         else:
-            log.info("[5/5] 无已有帖子，跳过详情刷新")
+            log.info("[5/5] 无帖子，跳过详情刷新")
 
         # 8. 构建输出
         output = build_output_data(
