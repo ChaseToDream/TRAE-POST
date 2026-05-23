@@ -216,7 +216,13 @@
     var user = data.user || {};
     var avatar = document.getElementById('avatar');
     if (user.avatar_url) { avatar.src = user.avatar_url; avatar.style.display = 'block'; }
-    document.getElementById('username').textContent = user.username || '未知用户';
+    var usernameEl = document.getElementById('username');
+    var uname = user.username || '未知用户';
+    if (user.username) {
+      usernameEl.innerHTML = '<a href="https://forum.trae.cn/u/' + esc(user.username) + '/summary" target="_blank" rel="noopener" class="header-name-link">' + esc(uname) + '</a>';
+    } else {
+      usernameEl.textContent = uname;
+    }
 
     var bh = '';
     if (user.title) bh += '<span class="header-badge">🏷 ' + esc(user.title) + '</span>';
