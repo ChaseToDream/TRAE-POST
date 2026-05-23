@@ -1,6 +1,6 @@
 # TRAE Forum Posts
 
-> 自动展示个人在 [TRAE 官方中文社区](https://forum.trae.cn/) 的帖子，支持分类筛选、关键词搜索、多视图切换，数据每 4 小时自动更新。
+> 自动展示个人在 [TRAE 官方中文社区](https://forum.trae.cn/) 的帖子，支持分类筛选、关键词搜索、多视图切换，数据每 2 小时自动更新。
 
 ![License](https://img.shields.io/github/license/ChaseToDream/TRAE-post?style=flat-square)
 ![Python](https://img.shields.io/badge/Python-3.11-blue?style=flat-square)
@@ -10,19 +10,20 @@
 
 | 功能 | 说明 |
 |------|------|
-| 🔄 自动更新 | GitHub Actions 每 4 小时自动爬取最新帖子 |
+| 🔄 自动更新 | GitHub Actions 每 2 小时自动爬取最新帖子 |
 | 📂 分类筛选 | 通过 `config.json` 灵活控制分类可见性 |
-| 🔍 关键词搜索 | 支持搜索帖子标题、内容和分类 |
-| 📊 双视图模式 | 瀑布流分类视图 / 卡片列表视图 |
+| 🔍 关键词搜索 | 支持搜索帖子标题、内容和分类，实时防抖 |
+| 📊 三视图模式 | 瀑布流分类视图 / 卡片列表视图 / 日历视图 |
 | 📱 响应式设计 | 完美适配桌面与移动端 |
 | ⚡ 骨架屏加载 | 优化加载体验，减少页面闪烁 |
 | 🌙 深色模式 | 支持亮色/深色主题切换，自动保存偏好 |
 | 🔗 URL 状态同步 | 搜索、分类、排序状态可通过 URL 分享 |
-| ⌨️ 键盘快捷键 | `/` 搜索、`D` 切换主题、`S` 统计面板 |
-| 📊 数据统计 | 分类分布图、发帖时间线图表 |
+| ⌨️ 键盘快捷键 | `/` 搜索、`D` 切换主题、`S` 统计面板、`R` 刷新 |
+| 📊 数据统计 | 分类分布饼图、发帖时间线柱状图 |
 | 📥 数据导出 | 支持导出为 CSV / JSON 格式 |
 | 🚀 异步并发 | Python 爬虫使用 aiohttp 异步并发，速度提升 5x |
 | 💾 增量更新 | 智能增量抓取，减少 API 调用 |
+| 🔃 页面刷新 | 页面内刷新按钮 + 5 分钟自动轮询 |
 
 ## 🚀 快速开始
 
@@ -64,8 +65,10 @@ FORUM_USERNAME=你的论坛用户名 python scripts/fetch_posts.py
 | `/` | 聚焦搜索框 |
 | `1` | 切换到分类视图 |
 | `2` | 切换到卡片视图 |
+| `3` | 切换到日历视图 |
 | `D` | 切换亮色/深色主题 |
 | `S` | 打开/关闭统计面板 |
+| `R` | 刷新数据 |
 | `Esc` | 清除搜索 / 关闭面板 |
 
 ## ⚙️ 配置说明
@@ -143,6 +146,8 @@ FORUM_USERNAME=你的论坛用户名 python scripts/fetch_posts.py
 ├── .github/workflows/
 │   └── update.yml              # GitHub Actions 自动更新工作流
 ├── SETUP.md                    # 从零配置指南
+├── UI_FEATURES.md              # UI 功能详细说明
+├── OPTIMIZATION_SUMMARY.md     # 优化总结
 └── LICENSE                     # MIT 许可证
 ```
 
@@ -154,15 +159,17 @@ FORUM_USERNAME=你的论坛用户名 python scripts/fetch_posts.py
 | 分类配色和图标 | `config.json` | 修改 `color`、`soft`、`icon` 字段 |
 | 页面主题配色 | `styles.css` | 修改 `:root` 下的 CSS 变量 |
 | 更新频率 | `.github/workflows/update.yml` | 修改 `cron` 表达式 |
-| 并发数/重试 | `scripts/fetch_posts.py` | 修改 `CONCURRENCY`、`MAX_RETRIES` 常量 |
+| 并发数/重试 | `scripts/fetch_posts.py` | 修改 `CONCURRENCY`、`MAX_RETRIES`、`REQUEST_DELAY` 常量 |
 
 ## 🔄 自动更新
 
-GitHub Actions 工作流（[update.yml](./.github/workflows/update.yml)）配置为每 4 小时自动运行，也可在 Actions 页面手动触发。
+GitHub Actions 工作流（[update.yml](./.github/workflows/update.yml)）配置为每 2 小时自动运行，也可在 Actions 页面手动触发。
 
 ```
-爬取数据 → 增量合并 → 检测变化 → 自动提交 → 自动部署
+爬取数据 → 增量合并 → 详情刷新 → 检测变化 → 自动提交 → 自动部署
 ```
+
+前端页面还内置了 5 分钟间隔的自动轮询，以及手动刷新按钮，确保展示数据始终最新。
 
 ## ❓ 常见问题
 
@@ -205,11 +212,14 @@ export FORUM_USERNAME="你的用户名"
 1. 确认 `data/posts.json` 文件存在且内容有效
 2. 确认部署时包含 `data/` 目录
 3. 浏览器控制台检查是否有跨域或 404 错误
+4. 本地预览时部分浏览器可能阻止 AJAX 请求本地文件，可使用 `python -m http.server 8080` 启动本地服务器
 </details>
 
 ## 📚 相关文档
 
 - [SETUP.md](./SETUP.md) — 从零开始配置项目的完整指南
+- [UI_FEATURES.md](./UI_FEATURES.md) — UI 功能详细说明
+- [OPTIMIZATION_SUMMARY.md](./OPTIMIZATION_SUMMARY.md) — 项目优化总结
 - [LICENSE](./LICENSE) — MIT 开源许可证
 
 ## 📄 License

@@ -132,7 +132,14 @@ git push -u origin main
 pip install -r requirements.txt
 ```
 
-项目仅依赖 `requests` 库，安装非常快。
+项目依赖以下库：
+
+| 依赖 | 用途 |
+|------|------|
+| `requests` | HTTP 请求（兼容保留） |
+| `aiohttp` | 异步 HTTP 请求，爬虫核心依赖 |
+| `tqdm` | 终端进度条显示 |
+| `pydantic` | 数据模型校验 |
 
 ### 3.2 首次爬取数据
 
@@ -156,21 +163,23 @@ python3 scripts/fetch_posts.py
 
 ```
 [1/4] 获取论坛分类列表...
-  获取到 16 个分类
+  顶层大类: 14 个, 子分类: 2 个
   已排除分类: Bug 反馈, 产品建议
 [2/4] 获取用户信息...
   用户: JasonShane (ID: 903)
-[3/4] 获取用户帖子...
-  正在获取第 1 页...
-  正在获取第 2 页...
+[3/4] 获取用户帖子列表...
+  第 1 页: 30 条新帖子
+  第 2 页: 16 条新帖子
   共获取 46 条帖子
-[4/4] 处理和筛选帖子...
+[4/4] 强制刷新所有帖子详情...
+  刷新帖子详情: 100%|██████████| 46/46
+  成功刷新 46/46 条帖子详情
 
 === 完成 ===
   有效帖子: 39
   已排除: 7 (Bug 反馈, 产品建议)
   分类统计: {"技巧分享": 10, "互动交流": 18, ...}
-  输出文件: d:\codeFile\ChaseToDream\TRAE-post\data\posts.json
+  输出文件: /path/to/TRAE-post/data/posts.json
 ```
 
 ### 3.3 本地预览
@@ -196,6 +205,13 @@ xdg-open index.html
 ```
 
 > 页面会自动加载同目录下的 `data/posts.json` 和 `config.json`，确保这两个文件存在。
+
+> ⚠️ 部分浏览器可能阻止 AJAX 请求本地文件，如遇此问题可使用本地服务器：
+
+```bash
+python -m http.server 8080
+# 然后访问 http://localhost:8080
+```
 
 ### 3.4 提交初始数据
 
@@ -297,7 +313,7 @@ Cloudflare Pages 全球 CDN 加速，访问速度更快。
 
 ### 6.3 修改页面主题
 
-编辑 [index.html](./index.html) 中 `:root` 下的 CSS 变量：
+编辑 [styles.css](./styles.css) 中 `:root` 下的 CSS 变量：
 
 ```css
 :root {
@@ -305,7 +321,7 @@ Cloudflare Pages 全球 CDN 加速，访问速度更快。
   --accent-soft: #EEF1FE;   /* 主强调色浅色 */
   --bg: #F0F2F8;            /* 页面背景色 */
   --text-primary: #1E2432;  /* 主文字色 */
-  /* 更多变量见 index.html */
+  /* 更多变量见 styles.css */
 }
 ```
 
@@ -316,7 +332,7 @@ Cloudflare Pages 全球 CDN 加速，访问速度更快。
 ```yaml
 on:
   schedule:
-    - cron: '0 */4 * * *'   # 每 4 小时运行一次
+    - cron: '0 */2 * * *'   # 每 2 小时运行一次
 ```
 
 常用 cron 示例：
@@ -336,8 +352,10 @@ on:
 
 | 常量 | 默认值 | 说明 |
 |------|--------|------|
-| `REQUEST_DELAY` | 2 | 每次请求间隔（秒），防止触发限流 |
+| `REQUEST_DELAY` | 1.0 | 每次请求间隔（秒），防止触发限流 |
 | `MAX_RETRIES` | 3 | 请求失败重试次数 |
+| `CONCURRENCY` | 5 | 异步并发数 |
+| `MAX_PAGES` | 200 | 最大翻页数 |
 
 ---
 
@@ -350,7 +368,7 @@ on:
 | `请设置环境变量 FORUM_USERNAME` | 未设置环境变量 | 参见 [3.2 首次爬取数据](#32-首次爬取数据) |
 | `无法获取用户信息` | 用户名不存在 | 检查用户名拼写，参见 [1.4 获取论坛用户名](#14-获取论坛用户名) |
 | `请求失败 (尝试 3/3)` | 网络问题或论坛限流 | 检查网络连接，或增大 `REQUEST_DELAY` 值 |
-| `ModuleNotFoundError: No module named 'requests'` | 未安装依赖 | 运行 `pip install -r requirements.txt` |
+| `ModuleNotFoundError: No module named 'aiohttp'` | 未安装依赖 | 运行 `pip install -r requirements.txt` |
 
 ### GitHub Actions 问题
 
