@@ -21,6 +21,7 @@
     list: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="7"/><rect x="3" y="14" width="18" height="7"/></svg>',
     up: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 15l-6-6-6 6"/></svg>',
     close: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>',
+    calendar: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>',
   };
 
   // ──────────────────────────────────────────
@@ -48,6 +49,9 @@
     theme: 'light',
     updatedAt: '',
     showStats: false,
+    calendarYear: new Date().getFullYear(),
+    calendarMonth: new Date().getMonth(),
+    calendarSelectedDate: null,
   };
 
   // ──────────────────────────────────────────
@@ -403,6 +407,119 @@
     }
   }
 
+  function renderCalendarView(filtered) {
+    var content = document.getElementById('content');
+    var year = state.calendarYear;
+    var month = state.calendarMonth;
+    var today = new Date();
+    var todayStr = today.getFullYear() + '-' + String(today.getMonth()+1).padStart(2,'0') + '-' + String(today.getDate()).padStart(2,'0');
+
+    var postsByDate = {};
+    filtered.forEach(function(p) {
+      if (p.created_at) {
+        var d = new Date(p.created_at);
+        var key = d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+        if (!postsByDate[key]) postsByDate[key] = [];
+        postsByDate[key].push(p);
+      }
+    });
+
+    var firstDay = new Date(year, month, 1).getDay();
+    var daysInMonth = new Date(year, month + 1, 0).getDate();
+    var daysInPrevMonth = new Date(year, month, 0).getDate();
+    var monthNames = ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'];
+
+    var h = '<div class="cal-view">';
+    h += '<div class="cal-header">';
+    h += '<button class="cal-nav-btn" id="cal-prev">' + ICONS.up + '</button>';
+    h += '<span class="cal-month-title">' + year + '年 ' + monthNames[month] + '</span>';
+    h += '<button class="cal-nav-btn" id="cal-next">' + ICONS.up + '</button>';
+    h += '</div>';
+    h += '<div class="cal-weekdays">';
+    var weekdays = ['日','一','二','三','四','五','六'];
+    weekdays.forEach(function(w) { h += '<div class="cal-weekday">' + w + '</div>'; });
+    h += '</div>';
+    h += '<div class="cal-grid">';
+
+    var totalCells = Math.ceil((firstDay + daysInMonth) / 7) * 7;
+    for (var i = 0; i < totalCells; i++) {
+      var dayNum, dateKey, isOther = false;
+      if (i < firstDay) {
+        dayNum = daysInPrevMonth - firstDay + 1 + i;
+        var pm = month === 0 ? 11 : month - 1;
+        var py = month === 0 ? year - 1 : year;
+        dateKey = py + '-' + String(pm+1).padStart(2,'0') + '-' + String(dayNum).padStart(2,'0');
+        isOther = true;
+      } else if (i >= firstDay + daysInMonth) {
+        dayNum = i - firstDay - daysInMonth + 1;
+        var nm = month === 11 ? 0 : month + 1;
+        var ny = month === 11 ? year + 1 : year;
+        dateKey = ny + '-' + String(nm+1).padStart(2,'0') + '-' + String(dayNum).padStart(2,'0');
+        isOther = true;
+      } else {
+        dayNum = i - firstDay + 1;
+        dateKey = year + '-' + String(month+1).padStart(2,'0') + '-' + String(dayNum).padStart(2,'0');
+      }
+
+      var posts = postsByDate[dateKey] || [];
+      var isToday = dateKey === todayStr;
+      var isSelected = state.calendarSelectedDate === dateKey;
+      var cls = 'cal-day';
+      if (isOther) cls += ' cal-day-other';
+      if (posts.length) cls += ' cal-day-has-posts';
+      else cls += ' cal-day-empty';
+      if (isToday) cls += ' cal-today';
+      if (isSelected) cls += ' cal-day-selected';
+
+      h += '<div class="' + cls + '" data-date="' + dateKey + '">';
+      h += '<span class="cal-day-num">' + dayNum + '</span>';
+      if (posts.length) {
+        var catSet = {};
+        posts.forEach(function(p) { catSet[p.category_name] = true; });
+        h += '<div class="cal-day-dots">';
+        Object.keys(catSet).forEach(function(cn) {
+          h += '<span class="cal-dot" style="background:' + cc(cn).color + '"></span>';
+        });
+        h += '</div>';
+        h += '<span class="cal-day-count">' + posts.length + '</span>';
+      }
+      h += '</div>';
+    }
+    h += '</div>';
+
+    if (state.calendarSelectedDate && postsByDate[state.calendarSelectedDate]) {
+      var selPosts = sortPosts(postsByDate[state.calendarSelectedDate]);
+      h += '<div class="cal-day-posts">';
+      h += '<div class="cal-day-posts-title">' + state.calendarSelectedDate + ' · ' + selPosts.length + '篇帖子</div>';
+      selPosts.forEach(function(p) { h += buildItem(p); });
+      h += '</div>';
+    }
+
+    h += '</div>';
+    content.innerHTML = h;
+
+    document.getElementById('cal-prev').addEventListener('click', function() {
+      state.calendarMonth--;
+      if (state.calendarMonth < 0) { state.calendarMonth = 11; state.calendarYear--; }
+      state.calendarSelectedDate = null;
+      renderPosts();
+    });
+    document.getElementById('cal-next').addEventListener('click', function() {
+      state.calendarMonth++;
+      if (state.calendarMonth > 11) { state.calendarMonth = 0; state.calendarYear++; }
+      state.calendarSelectedDate = null;
+      renderPosts();
+    });
+
+    content.querySelectorAll('.cal-day-has-posts').forEach(function(el) {
+      el.addEventListener('click', function() {
+        var date = this.dataset.date;
+        state.calendarSelectedDate = state.calendarSelectedDate === date ? null : date;
+        renderPosts();
+      });
+    });
+  }
+
   function renderPosts() {
     filterPosts();
     var content = document.getElementById('content');
@@ -410,7 +527,9 @@
       content.innerHTML = '<div class="empty-state"><div class="icon">📭</div><p>暂无匹配的帖子</p></div>';
       return;
     }
-    if (state.currentView === 'columns' && state.activeCategory === 'all') {
+    if (state.currentView === 'calendar') {
+      renderCalendarView(state.filteredPosts);
+    } else if (state.currentView === 'columns' && state.activeCategory === 'all') {
       renderColumnsView(state.filteredPosts);
     } else {
       renderFlatView(state.filteredPosts);
@@ -559,6 +678,10 @@
           e.preventDefault();
           document.getElementById('view-flat').click();
           break;
+        case '3':
+          e.preventDefault();
+          document.getElementById('view-calendar').click();
+          break;
         case 'd':
         case 'D':
           e.preventDefault();
@@ -632,6 +755,7 @@
       state.currentView = 'columns';
       this.classList.add('active');
       document.getElementById('view-flat').classList.remove('active');
+      document.getElementById('view-calendar').classList.remove('active');
       renderPosts();
       savePrefs();
       saveToURL();
@@ -640,6 +764,17 @@
       state.currentView = 'flat';
       this.classList.add('active');
       document.getElementById('view-columns').classList.remove('active');
+      document.getElementById('view-calendar').classList.remove('active');
+      renderPosts();
+      savePrefs();
+      saveToURL();
+    });
+    document.getElementById('view-calendar').addEventListener('click', function() {
+      state.currentView = 'calendar';
+      this.classList.add('active');
+      document.getElementById('view-columns').classList.remove('active');
+      document.getElementById('view-flat').classList.remove('active');
+      state.calendarSelectedDate = null;
       renderPosts();
       savePrefs();
       saveToURL();
@@ -681,6 +816,8 @@
       document.getElementById('sort-select').value = state.currentSort;
       if (state.currentView === 'flat') {
         document.getElementById('view-flat').click();
+      } else if (state.currentView === 'calendar') {
+        document.getElementById('view-calendar').click();
       }
       updateCatTabs();
       renderPosts();
@@ -709,6 +846,11 @@
     if (state.currentView === 'flat') {
       document.getElementById('view-flat').classList.add('active');
       document.getElementById('view-columns').classList.remove('active');
+      document.getElementById('view-calendar').classList.remove('active');
+    } else if (state.currentView === 'calendar') {
+      document.getElementById('view-calendar').classList.add('active');
+      document.getElementById('view-columns').classList.remove('active');
+      document.getElementById('view-flat').classList.remove('active');
     }
 
     // 设置事件
@@ -735,6 +877,8 @@
         renderHeader(data);
         updateCatTabs();
         renderPosts();
+
+        document.getElementById('toolbar').style.display = '';
 
         setTimeout(function() { content.style.opacity = '1'; }, 50);
       })
