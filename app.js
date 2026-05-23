@@ -850,7 +850,6 @@
       .then(function(r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
       .then(function(data) {
         if (!data || !data.posts) return;
-        if (data.updated_at && data.updated_at === state.updatedAt) return;
 
         state.allPosts = data.posts || [];
         state.categories = data.categories || {};
@@ -922,7 +921,7 @@
       .then(function(r) { if (!r.ok) return {}; return r.json(); })
       .then(function(cfg) {
         state.catConfig = (cfg && cfg.categories) || {};
-        return fetch(DATA_PATH);
+        return fetch(DATA_PATH + '?t=' + Date.now());
       })
       .then(function(r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
       .then(function(data) {
