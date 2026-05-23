@@ -22,6 +22,7 @@
     up: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 15l-6-6-6 6"/></svg>',
     close: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>',
     calendar: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>',
+    refresh: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>',
   };
 
   // ──────────────────────────────────────────
@@ -52,6 +53,9 @@
     calendarYear: new Date().getFullYear(),
     calendarMonth: new Date().getMonth(),
     calendarSelectedDate: null,
+    refreshTimer: null,
+    isRefreshing: false,
+    REFRESH_INTERVAL: 5 * 60 * 1000,
   };
 
   // ──────────────────────────────────────────
@@ -693,6 +697,11 @@
           state.showStats = !state.showStats;
           renderStats();
           break;
+        case 'r':
+        case 'R':
+          e.preventDefault();
+          refreshData();
+          break;
         case 'Escape':
           document.getElementById('search-clear').click();
           state.showStats = false;
@@ -783,6 +792,9 @@
     // 主题切换
     document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
 
+    // 刷新数据
+    document.getElementById('refresh-btn').addEventListener('click', refreshData);
+
     // 导出按钮
     document.getElementById('export-csv').addEventListener('click', function() { exportData('csv'); });
     document.getElementById('export-json').addEventListener('click', function() { exportData('json'); });
@@ -825,8 +837,51 @@
   }
 
   // ──────────────────────────────────────────
-  // 错误显示
+  // 数据刷新
   // ──────────────────────────────────────────
+  function refreshData() {
+    if (state.isRefreshing) return;
+    state.isRefreshing = true;
+
+    var btn = document.getElementById('refresh-btn');
+    if (btn) btn.classList.add('spinning');
+
+    fetch(DATA_PATH + '?t=' + Date.now())
+      .then(function(r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+      .then(function(data) {
+        if (!data || !data.posts) return;
+
+        state.allPosts = data.posts || [];
+        state.categories = data.categories || {};
+
+        if (data.updated_at) {
+          state.updatedAt = data.updated_at;
+          document.getElementById('update-time').textContent = '最后更新: ' + fmtDate(data.updated_at);
+        }
+
+        renderHeader(data);
+        updateCatTabs();
+        renderPosts();
+      })
+      .catch(function(e) { console.warn('刷新数据失败:', e); })
+      .finally(function() {
+        state.isRefreshing = false;
+        if (btn) btn.classList.remove('spinning');
+      });
+  }
+
+  function startAutoRefresh() {
+    stopAutoRefresh();
+    state.refreshTimer = setInterval(refreshData, state.REFRESH_INTERVAL);
+  }
+
+  function stopAutoRefresh() {
+    if (state.refreshTimer) {
+      clearInterval(state.refreshTimer);
+      state.refreshTimer = null;
+    }
+  }
+
   function showError(msg) {
     document.getElementById('content').innerHTML = '<div class="error-state"><h3>⚠️ 加载失败</h3><p>' + esc(msg) + '</p><p style="margin-top:10px;font-size:0.8rem">请稍后重试，或访问 <a href="https://forum.trae.cn/" target="_blank" rel="noopener">TRAE官方论坛</a></p></div>';
   }
@@ -866,7 +921,7 @@
       .then(function(r) { if (!r.ok) return {}; return r.json(); })
       .then(function(cfg) {
         state.catConfig = (cfg && cfg.categories) || {};
-        return fetch(DATA_PATH);
+        return fetch(DATA_PATH + '?t=' + Date.now());
       })
       .then(function(r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
       .then(function(data) {
@@ -879,6 +934,16 @@
         renderPosts();
 
         document.getElementById('toolbar').style.display = '';
+
+        startAutoRefresh();
+        document.addEventListener('visibilitychange', function() {
+          if (document.hidden) {
+            stopAutoRefresh();
+          } else {
+            refreshData();
+            startAutoRefresh();
+          }
+        });
 
         setTimeout(function() { content.style.opacity = '1'; }, 50);
       })
