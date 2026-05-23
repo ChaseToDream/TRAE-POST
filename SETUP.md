@@ -2,19 +2,21 @@
 
 本文档将引导你从零开始配置 TRAE Forum Posts 项目，包括环境准备、数据爬取、自动更新和线上部署。
 
-> 如果你想快速了解项目功能，请返回 [README.md](./README.md)
+> 📖 如果你想快速了解项目功能，请返回 [README.md](./README.md)
 
 ---
 
-## 目录
+## 📑 目录
 
-1. [环境准备](#1-环境准备)
-2. [获取项目代码](#2-获取项目代码)
-3. [本地运行与数据爬取](#3-本地运行与数据爬取)
-4. [配置 GitHub Actions Secret](#4-配置-github-actions-secret)
-5. [部署到线上](#5-部署到线上)
-6. [自定义配置](#6-自定义配置)
-7. [故障排除](#7-故障排除)
+| 步骤 | 内容 | 说明 |
+|:----:|------|------|
+| 1 | [环境准备](#1-环境准备) | Python、Git、账号注册 |
+| 2 | [获取项目代码](#2-获取项目代码) | Fork 或克隆仓库 |
+| 3 | [本地运行与数据爬取](#3-本地运行与数据爬取) | 安装依赖、首次爬取、本地预览 |
+| 4 | [配置 GitHub Actions Secret](#4-配置-github-actions-secret) | 让工作流知道你的论坛用户名 |
+| 5 | [部署到线上](#5-部署到线上) | Cloudflare Pages 或 GitHub Pages |
+| 6 | [自定义配置](#6-自定义配置) | 分类、主题、频率、爬取参数 |
+| 7 | [故障排除](#7-故障排除) | 常见错误及解决方法 |
 
 ---
 
@@ -22,27 +24,36 @@
 
 ### 1.1 安装 Python
 
-项目需要 Python 3.8 或更高版本。
+项目需要 **Python 3.8+**。
 
-**Windows：**
+<table>
+<tr>
+<td width="33%">
 
-1. 前往 [python.org](https://www.python.org/downloads/) 下载安装包
+**🪟 Windows**
+
+1. 前往 [python.org](https://www.python.org/downloads/) 下载
 2. 安装时勾选 **Add Python to PATH**
-3. 打开 PowerShell 验证：
+3. 验证：
 
 ```powershell
 python --version
-# 应输出 Python 3.x.x
 ```
 
-**macOS：**
+</td>
+<td width="33%">
+
+**🍎 macOS**
 
 ```bash
 brew install python3
 python3 --version
 ```
 
-**Linux (Ubuntu/Debian)：**
+</td>
+<td width="33%">
+
+**🐧 Linux**
 
 ```bash
 sudo apt update
@@ -50,23 +61,41 @@ sudo apt install python3 python3-pip
 python3 --version
 ```
 
+</td>
+</tr>
+</table>
+
 ### 1.2 安装 Git
 
-**Windows：**
+<table>
+<tr>
+<td width="33%">
 
-从 [git-scm.com](https://git-scm.com/download/win) 下载安装，安装选项保持默认即可。
+**🪟 Windows**
 
-**macOS：**
+从 [git-scm.com](https://git-scm.com/download/win) 下载安装
+
+</td>
+<td width="33%">
+
+**🍎 macOS**
 
 ```bash
 brew install git
 ```
 
-**Linux：**
+</td>
+<td width="33%">
+
+**🐧 Linux**
 
 ```bash
 sudo apt install git
 ```
+
+</td>
+</tr>
+</table>
 
 验证安装：
 
@@ -77,10 +106,10 @@ git --version
 ### 1.3 注册必要账号
 
 | 账号 | 用途 | 注册地址 |
-|------|------|----------|
+|:-----|:-----|:---------|
 | GitHub | 托管代码、自动更新、部署 | [github.com](https://github.com/) |
 | TRAE 论坛 | 获取帖子数据 | [forum.trae.cn](https://forum.trae.cn/) |
-| Cloudflare（可选） | Cloudflare Pages 部署 | [cloudflare.com](https://www.cloudflare.com/) |
+| Cloudflare | Cloudflare Pages 部署（可选） | [cloudflare.com](https://www.cloudflare.com/) |
 
 ### 1.4 获取论坛用户名
 
@@ -96,21 +125,30 @@ https://forum.trae.cn/u/JasonShane/summary
 
 ## 2. 获取项目代码
 
-### 方式一：Fork 仓库（推荐）
+<table>
+<tr>
+<td width="50%">
+
+### 🍴 方式一：Fork（推荐）
 
 Fork 后你将拥有独立副本，可以自由修改并享受 GitHub Actions 自动更新。
 
 1. 访问项目仓库页面
 2. 点击右上角 **Fork** 按钮
 3. 保持默认设置，点击 **Create fork**
-4. 克隆你 Fork 的仓库到本地：
+4. 克隆到本地：
 
 ```bash
 git clone https://github.com/你的用户名/TRAE-post.git
 cd TRAE-post
 ```
 
-### 方式二：直接克隆后推送到自己的仓库
+</td>
+<td width="50%">
+
+### 📥 方式二：克隆后推送
+
+适合不想 Fork 的用户：
 
 ```bash
 git clone https://github.com/ChaseToDream/TRAE-post.git
@@ -122,6 +160,10 @@ git remote add origin https://github.com/你的用户名/你的仓库名.git
 git push -u origin main
 ```
 
+</td>
+</tr>
+</table>
+
 ---
 
 ## 3. 本地运行与数据爬取
@@ -132,10 +174,8 @@ git push -u origin main
 pip install -r requirements.txt
 ```
 
-项目依赖以下库：
-
 | 依赖 | 用途 |
-|------|------|
+|:-----|:-----|
 | `requests` | HTTP 请求（兼容保留） |
 | `aiohttp` | 异步 HTTP 请求，爬虫核心依赖 |
 | `tqdm` | 终端进度条显示 |
@@ -145,19 +185,30 @@ pip install -r requirements.txt
 
 设置环境变量并运行脚本：
 
-**Windows PowerShell：**
+<table>
+<tr>
+<td width="50%">
+
+**🪟 Windows PowerShell**
 
 ```powershell
 $env:FORUM_USERNAME="你的论坛用户名"
 python scripts/fetch_posts.py
 ```
 
-**macOS / Linux：**
+</td>
+<td width="50%">
+
+**🍎🐧 macOS / Linux**
 
 ```bash
 export FORUM_USERNAME="你的论坛用户名"
 python3 scripts/fetch_posts.py
 ```
+
+</td>
+</tr>
+</table>
 
 脚本执行过程如下：
 
@@ -184,34 +235,46 @@ python3 scripts/fetch_posts.py
 
 ### 3.3 本地预览
 
-直接用浏览器打开项目根目录的 `index.html` 文件即可预览页面。
+直接用浏览器打开项目根目录的 `index.html` 文件即可预览。
 
-**Windows：**
+<table>
+<tr>
+<td width="33%">
+
+**🪟 Windows**
 
 ```powershell
 start index.html
 ```
 
-**macOS：**
+</td>
+<td width="33%">
+
+**🍎 macOS**
 
 ```bash
 open index.html
 ```
 
-**Linux：**
+</td>
+<td width="33%">
+
+**🐧 Linux**
 
 ```bash
 xdg-open index.html
 ```
 
-> 页面会自动加载同目录下的 `data/posts.json` 和 `config.json`，确保这两个文件存在。
+</td>
+</tr>
+</table>
 
 > ⚠️ 部分浏览器可能阻止 AJAX 请求本地文件，如遇此问题可使用本地服务器：
-
-```bash
-python -m http.server 8080
-# 然后访问 http://localhost:8080
-```
+>
+> ```bash
+> python -m http.server 8080
+> # 然后访问 http://localhost:8080
+> ```
 
 ### 3.4 提交初始数据
 
@@ -238,24 +301,28 @@ git push
    - **Value**：你的论坛用户名（如 `JasonShane`）
 6. 点击 **Add secret**
 
-配置完成后，可以在 Actions 页面手动触发一次工作流验证：
+配置完成后，手动触发一次验证：
 
 1. 进入仓库的 **Actions** 标签
 2. 左侧选择 **Update Forum Posts** 工作流
 3. 点击 **Run workflow** → **Run workflow**
 4. 等待运行完成，检查是否成功提交了新的 `posts.json`
 
-> **注意**：Fork 的仓库首次需要在 Actions 页面手动启用工作流，GitHub 会显示一个确认提示。
+> ⚠️ Fork 的仓库首次需要在 Actions 页面手动启用工作流，GitHub 会显示一个确认提示。
 
 ---
 
 ## 5. 部署到线上
 
-选择以下任一平台部署，两者均免费且无需构建步骤。
+选择以下任一平台部署，两者均**免费且无需构建步骤**。
 
-### 5.1 Cloudflare Pages（推荐）
+<table>
+<tr>
+<td width="50%">
 
-Cloudflare Pages 全球 CDN 加速，访问速度更快。
+### ☁️ Cloudflare Pages（推荐）
+
+全球 CDN 加速，访问速度更快
 
 1. 登录 [Cloudflare Dashboard](https://dash.cloudflare.com/)
 2. 进入 **Workers & Pages**
@@ -267,19 +334,28 @@ Cloudflare Pages 全球 CDN 加速，访问速度更快。
    - **Build output directory**：`/`
    - **Root directory**：`/`
 6. 点击 **Save and Deploy**
-7. 等待部署完成，Cloudflare 会分配一个 `xxx.pages.dev` 域名
+7. 等待部署完成，分配 `xxx.pages.dev` 域名
 
-部署成功后，每次 GitHub Actions 提交新数据，Cloudflare 会自动检测并重新部署。
+每次 GitHub Actions 提交新数据，Cloudflare 会自动检测并重新部署。
 
-### 5.2 GitHub Pages
+</td>
+<td width="50%">
+
+### 🐙 GitHub Pages
+
+零配置，一键启用
 
 1. 进入仓库 **Settings → Pages**
 2. **Source** 选择 `Deploy from a branch`
 3. **Branch** 选择 `main`，目录选 `/ (root)`
 4. 点击 **Save**
-5. 等待几分钟，页面顶部会显示访问地址：`https://你的用户名.github.io/TRAE-post/`
+5. 等待几分钟，访问地址：`https://你的用户名.github.io/TRAE-post/`
 
-> GitHub Pages 的更新可能需要 1-3 分钟生效。
+> 更新可能需要 1-3 分钟生效
+
+</td>
+</tr>
+</table>
 
 ---
 
@@ -303,10 +379,8 @@ Cloudflare Pages 全球 CDN 加速，访问速度更快。
 
 ### 6.2 修改分类配色和图标
 
-每个分类支持以下样式字段：
-
 | 字段 | 说明 | 示例 |
-|------|------|------|
+|:-----|:-----|:-----|
 | `color` | 主色，用于分类标签和标题 | `#0066FF` |
 | `soft` | 浅色，用于背景和徽章 | `#E8F0FE` |
 | `icon` | 分类图标，支持 Emoji | `💡` |
@@ -335,27 +409,25 @@ on:
     - cron: '0 */2 * * *'   # 每 2 小时运行一次
 ```
 
-常用 cron 示例：
-
 | 频率 | cron 表达式 |
-|------|-------------|
+|:-----|:------------|
 | 每 2 小时 | `0 */2 * * *` |
 | 每 4 小时 | `0 */4 * * *` |
 | 每天一次 | `0 2 * * *` |
 | 每周一 | `0 2 * * 1` |
 
-> cron 使用 UTC 时区，北京时间需减 8 小时。例如北京时间 10:00 = UTC 02:00。
+> 💡 cron 使用 UTC 时区，北京时间需减 8 小时。例如北京时间 10:00 = UTC 02:00。
 
 ### 6.5 调整爬取参数
 
 编辑 [scripts/fetch_posts.py](./scripts/fetch_posts.py) 顶部的常量：
 
 | 常量 | 默认值 | 说明 |
-|------|--------|------|
-| `REQUEST_DELAY` | 1.0 | 每次请求间隔（秒），防止触发限流 |
-| `MAX_RETRIES` | 3 | 请求失败重试次数 |
-| `CONCURRENCY` | 5 | 异步并发数 |
-| `MAX_PAGES` | 200 | 最大翻页数 |
+|:-----|:-------|:-----|
+| `REQUEST_DELAY` | `1.0` | 每次请求间隔（秒），防止触发限流 |
+| `MAX_RETRIES` | `3` | 请求失败重试次数 |
+| `CONCURRENCY` | `5` | 异步并发数 |
+| `MAX_PAGES` | `200` | 最大翻页数 |
 
 ---
 
@@ -364,7 +436,7 @@ on:
 ### 脚本运行报错
 
 | 错误信息 | 原因 | 解决方法 |
-|----------|------|----------|
+|:---------|:-----|:---------|
 | `请设置环境变量 FORUM_USERNAME` | 未设置环境变量 | 参见 [3.2 首次爬取数据](#32-首次爬取数据) |
 | `无法获取用户信息` | 用户名不存在 | 检查用户名拼写，参见 [1.4 获取论坛用户名](#14-获取论坛用户名) |
 | `请求失败 (尝试 3/3)` | 网络问题或论坛限流 | 检查网络连接，或增大 `REQUEST_DELAY` 值 |
@@ -372,44 +444,60 @@ on:
 
 ### GitHub Actions 问题
 
-**工作流未自动运行：**
+<details>
+<summary><strong>工作流未自动运行</strong></summary>
 
 1. Fork 的仓库需要先在 Actions 页面手动启用
 2. 确认 `FORUM_USERNAME` Secret 已正确配置
 3. 确认工作流文件在 `main` 分支上
 4. 尝试手动触发：Actions → Update Forum Posts → Run workflow
 
-**工作流运行但数据未更新：**
+</details>
+
+<details>
+<summary><strong>工作流运行但数据未更新</strong></summary>
 
 1. 检查 Actions 运行日志，确认脚本是否正常执行
 2. 可能是论坛数据确实没有变化（工作流会检测差异，无变化则不提交）
 
+</details>
+
 ### 部署问题
 
-**页面一直显示「正在加载数据...」：**
+<details>
+<summary><strong>页面一直显示「正在加载数据...」</strong></summary>
 
 1. 确认 `data/posts.json` 文件已提交到仓库
 2. 用浏览器开发者工具（F12）检查 Network 面板，确认 `posts.json` 和 `config.json` 是否返回 404
 3. 如果是本地文件预览，部分浏览器可能阻止 AJAX 请求本地文件，可使用本地服务器：
 
 ```bash
-# Python 自带的简易 HTTP 服务器
 python -m http.server 8080
 # 然后访问 http://localhost:8080
 ```
 
-**Cloudflare Pages 部署后样式异常：**
+</details>
+
+<details>
+<summary><strong>Cloudflare Pages 部署后样式异常</strong></summary>
 
 - 确认 Build output directory 设置为 `/`
 - 确认所有文件（包括 `data/` 目录）都已提交到仓库
+
+</details>
 
 ---
 
 ## 完整流程回顾
 
 ```
-环境准备 → Fork/克隆仓库 → 安装依赖 → 设置环境变量 → 运行爬取脚本
-    → 本地预览验证 → 提交数据 → 配置 Secret → 部署到线上 → 自动更新运行
+┌──────────┐   ┌──────────┐   ┌──────────┐   ┌──────────┐   ┌──────────┐
+│ 环境准备  │ ─▶│ 获取代码  │ ─▶│ 安装依赖  │ ─▶│ 设置变量  │ ─▶│ 运行脚本  │
+└──────────┘   └──────────┘   └──────────┘   └──────────┘   └──────────┘
+                                                                  │
+┌──────────┐   ┌──────────┐   ┌──────────┐   ┌──────────┐        │
+│ 自动更新  │ ◀─│ 部署上线  │ ◀─│ 配置密钥  │ ◀─│ 提交数据  │ ◀──────┘
+└──────────┘   └──────────┘   └──────────┘   └──────────┘
 ```
 
 遇到问题可参考上方故障排除，或回到 [README.md](./README.md) 查看项目概览和常见问题。
