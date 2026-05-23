@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-05-23T02:45:13Z",
+  "updated_at": "2026-05-23T06:32:09Z",
   "user": {
     "id": 903,
     "username": "JasonShane",
@@ -10,18 +10,39 @@
     "trust_level": 2,
     "created_at": "2026-03-03T02:28:29.304Z"
   },
-  "total_posts": 70,
+  "total_posts": 71,
   "excluded_posts": 8,
   "categories": {
+    "技巧分享": 16,
     "AI充电站": 7,
     "SOLO技能创作赛": 7,
     "帮助与支持": 10,
-    "技巧分享": 15,
     "互动交流": 20,
     "案例与作品": 7,
     "SOLO挑战赛专区": 4
   },
   "posts": [
+    {
+      "id": 19071,
+      "title": "MTC + 飞书CLI + 自动化——快速构建自己的信息图谱",
+      "created_at": "2026-05-23T03:11:13.151Z",
+      "last_posted_at": "2026-05-23T03:11:13.208Z",
+      "category_id": 9,
+      "category_name": "技巧分享",
+      "tags": [
+        "trae技巧便利店"
+      ],
+      "excerpt": "在前一段时间，TRAE SOLO内部集成了飞书CLI功能，让用户能够使用SOLO直接操作飞书授权的功能，而其中最为实际有效的便是知识检索与归纳，这就涉及到飞书云文档/多维表格功能！ \n除了将MTC输出的文档整理成飞书文档永久保存之外，还可以…",
+      "image_url": "https://trae-forum-cdn.trae.com.cn/prod/optimized/3X/6/3/636b07871a55b9104401697ad742df9e3e41eda9_2_1024x478.png",
+      "views": 11,
+      "like_count": 0,
+      "reply_count": 0,
+      "posts_count": 1,
+      "url": "https://forum.trae.cn/t/topic/19071",
+      "pinned": false,
+      "closed": false,
+      "archived": false
+    },
     {
       "id": 19037,
       "title": "Deepseek-V4-Pro优惠价格转为正式价格，持续低价！",
@@ -1464,9 +1485,9 @@
     }
   ],
   "_quality": {
-    "raw_fetched": 8,
-    "valid_posts": 70,
-    "total_posts": 70,
+    "raw_fetched": 9,
+    "valid_posts": 71,
+    "total_posts": 71,
     "issues": {
       "missing_title": 0,
       "missing_date": 0,
